@@ -2,14 +2,10 @@
 layout: post
 title: "A Standalone Spark Application in Scala"
 date: 2014-04-01T22:56:00+05:30
-categories:
- - Scala
- - Apache Spark
- - Big Data Spark Example
- - Spark with scala IDE
- - develop Spark application with eclipse
- - Spark sbt example
- - apache spark tutorial
+comments: true
+categories: [Apache Spark, SBT, Scala, BigData]
+keywords: Scala, Apache Spark, Big Data Spark Example, Spark with scala IDE, develop Spark application with eclipse, Spark sbt example, apache spark tutorial, 
+description: Spark Application in Scala, Building Spark Applications, Developing Spark Applications
 ---
 
 Sharing  some ideas about how to create a Spark-streaming stand-alone application and how to run the Spark applications in scala-SDK (Eclipse IDE). 

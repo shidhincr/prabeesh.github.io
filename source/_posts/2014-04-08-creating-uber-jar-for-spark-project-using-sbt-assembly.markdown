@@ -3,19 +3,9 @@ layout: post
 title: "Creating uber JAR for Spark project using sbt-assembly"
 date: 2014-04-08T09:47:00+05:30
 comments: true
-categories:
- - mergeStrategy in assembly sbt
- - Spark Scala
- - Spark sbt assembly
- - sbt
- - Spark assembly
- - apache spark tutorial
- - Apache Spark
- - Big Data Spark
- - How to make Spark Single Jar
- - Spark uber jar
- - Spark fat jar
- - Spark sbt 
+categories: [Apache Spark, SBT, Scala, BigData]
+keywords: mergeStrategy in assembly sbt, Spark Scala, Spark sbt assembly, sbt, Spark assembly, apache spark tutorial, Apache Spark, Big Data Spark, How to make Spark Single Jar, Spark uber jar, Spark fat jar, Spark sbt
+description: creating single jar for spark proect, creating fat jar for spark project, creating single ar using sbt-assemby, spark using sbt
 ---
 In the [previous post](/blog/2014/04/01/a-standalone-spark-application-in-scala/) shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.
 
