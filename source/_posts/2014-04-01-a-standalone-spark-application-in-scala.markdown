@@ -16,7 +16,7 @@ Sharing  some ideas about how to create a Spark-streaming stand-alone applicatio
 ## Building Spark Application using SBT 
 A Standalone application in Scala using Apache Spark API. The application is build using Simple Build Tool(SBT). 
 
-For  creating a stand alone app take the twitter popular tag example from Spark example streaming [folder](https://github.com/apache/spark/blob/branch-0.9/examples/src/main/scala/org/apache/spark/streaming/examples/TwitterPopularTags.scala)
+For  creating a stand alone app take the twitter popular tag [example](https://github.com/apache/spark/blob/branch-0.9/examples/src/main/scala/org/apache/spark/streaming/examples/TwitterPopularTags.scala)
 
 This program calculates popular hashtags (popular topics) over sliding 10 and 60 second windows from a Twitter stream. The stream is instantiated with credentials and optionally filters supplied by the command line arguments.
 
