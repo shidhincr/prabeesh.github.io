@@ -17,7 +17,7 @@ categories:
  - Spark fat jar
  - Spark sbt 
 ---
-In the previous post shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.
+In the [previous post](/blog/2014/04/01/a-standalone-spark-application-in-scala/) shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.
 
 Add sbt-assembly plugin in **_project/plugin.sbt_**
 ```scala
