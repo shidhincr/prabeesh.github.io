@@ -22,10 +22,10 @@ $ tar xvf mesos-0.13.0.tar.gz
 $ cd mesos-0.13.0
 $ mkdir build
 $ cd build
-$sudo  ../configure --prefix=/home/user/mesos
+$ sudo  ../configure --prefix=/home/user/mesos
 $ sudo make
 $ sudo make check
-$sudo make install
+$ sudo make install
 ```
 You can pass the --prefix option while configuring to tell where to install. For example, pass**__--prefix=/home/user/mesos__**. By default the prefix is **__/usr/local__**.
 Once you are done with the installation, it is now time to start your mesos cluster:
