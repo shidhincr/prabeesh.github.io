@@ -64,28 +64,29 @@ Or just type scala. It goes to scala interactive shell
 ```
 Finally download spark ditributaion from [here](http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz) 
 ```
-	$tar xvf spark-1.1.0.tgz 
+	$ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz
+	$ tar xvf spark-1.1.0.tgz 
 ```
 ###Building
 
 SBT(Simple Build Tool) is used for building Spark, which is bundled with it. To compile the code
 ```
-	$cd spark-1.1.0
+	$ cd spark-1.1.0
 
-	$sbt/sbt assembly
+	$ sbt/sbt assembly
 ```
 Building take some time. After successfully packing you can test a sample program
 ```
-	$./bin/run-example SparkPi 10
+	$ ./bin/run-example SparkPi 10
 ```
 Then you get the output as Pi is roughly 3.14634. Spark is ready to fire
 
-For more detail [visit](https://spark.apache.org/docs/latest/)
+For more detail [visit](http://spark.apache.org/docs/1.1.1/)
 
 ###Spark Interactive Shell
 You can run Spark interactively through the Scala shell
 ```
-	$./spark-shell
+	$ ./spark-shell
 ```
 ```scala
 	scala> val textFile = sc.textFile("README.md")
@@ -93,32 +94,31 @@ You can run Spark interactively through the Scala shell
 ```
 If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into _spark-shell_ just follow the instructions
 ```
-	$sbt/sbt "streaming-mqtt/package"
+	$ sbt/sbt "streaming-mqtt/package"
 
 	then add this package into the classpath:
 
-	$bin/spark-shell --driver-class-path
-external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.2.0-SNAPSHOT.jar
+	$ bin/spark-shell --driver-class-path
+external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.1.0.jar
 	scala > import org.apache.spark.streaming.mqtt._
 ```
 Using this you can check your code line by line.
 ###Accessing Hadoop Filesystems
 If you have already the build source package, rebuild it against the hadoop version as follows
 ```
-	$sbt/sbt clean
+	$ sbt/sbt clean
 ```
 You can change this by setting the SPARK_HADOOP_VERSION variable. Here uses Hadoop 2.0.0-cdh4.3.0
 ```
-	$SPARK_HADOOP_VERSION=2.0.0-mr1-cdh4.3.0 sbt/sbt assembly
+	$ SPARK_HADOOP_VERSION=2.0.0-mr1-cdh4.3.0 sbt/sbt assembly
 ```
 After successfully build. You can read  and write data into cdh4.3.0 clusters.
 ```
-	$.bin/spark-shell
+	$ .bin/spark-shell
 ```
 ```scala
 	scala> var file = sc.textFile("hdfs://IP:8020/path/to/textfile.txt")
 	scala>  file.flatMap(line => line.split(",")).map(word => (word, 1)).reduceByKey(_+_)
 	scala> count.saveAsTextFile("hdfs://IP:8020/path/to/ouput")
 ```
-You may find more [here](http://spark.apache.org/docs/latest/quick-start.html)
-
+You may find more [here](http://spark.apache.org/docs/1.1.1/quick-start.html)
