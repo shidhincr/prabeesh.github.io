@@ -1,7 +1,9 @@
 ---
 layout: post
-title: "Paint App using Flask with MongoDB"
+displayTitle: Flask with MongoDB
+title: Paint App using Flask with MongoDB
 date: 2013-03-31T21:53:00+05:30
+comments: true
 categories: [No SQL, Flask, Python]
 keywords: Flask with Mongo DB, flask mongo db example, mongo db flask
 description: App using mongo DB in flask
