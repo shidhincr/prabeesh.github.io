@@ -1,0 +1,447 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Simple CUDA Program - This is One of the Solutions</title>
+  <meta name="author" content="Prabeesh K">
+
+  
+  <meta name="description" content="Let&rsquo;s consider a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps. 1- CPU allocates &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56250765-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">This is One of the Solutions</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.prabeeshk.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-top -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="5110289998"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  <article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Simple CUDA Program</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-03-07T11:00:00+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>11:00 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Let&rsquo;s consider a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.</p>
+
+<pre><code>1- CPU allocates storage on GPU
+2- CPU copies input data from CPU to GPU
+3- CPU launch kernels on GPU to process the data
+4- CPU copies result back to CPU from GPU
+</code></pre>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">nvcc</span> <span class="o">-</span><span class="n">o</span> <span class="n">square</span> <span class="n">square</span><span class="p">.</span><span class="n">cu</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Here is instead of running the regular C compiler we are running <em>nvcc</em>, the Nvidia C Compiler. The output is going to go an executable called square and our input file is &ldquo;square.cu&rdquo;. cu is the convention for how we name.Source code is available in <a href="https://github.com/prabeesh/CUDA-code-square/blob/master/square.cu">github</a></p>
+
+<p>We are going to walk through the CPU code first.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">**</span> <span class="n">argv</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">int</span> <span class="n">ARRAY_SIZE</span> <span class="o">=</span> <span class="mi">64</span><span class="p">;</span>
+</span><span class='line'>    <span class="k">const</span> <span class="kt">int</span> <span class="n">ARRAY_BYTES</span> <span class="o">=</span> <span class="n">ARRAY_SIZE</span> <span class="o">*</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">float</span><span class="p">);</span>
+</span><span class='line'>    <span class="c1">// generate the input array on the host float h_in[ARRAY_SIZE]; </span>
+</span><span class='line'>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&amp;</span><span class="n">lt</span><span class="p">;</span> <span class="n">ARRAY_SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>        <span class="n">h_in</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kt">float</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">float</span> <span class="n">h_out</span><span class="p">[</span><span class="n">ARRAY_SIZE</span><span class="p">]</span>
+</span><span class='line'><span class="p">....</span>
+</span><span class='line'><span class="p">.....</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The first thing we are going to do is declare the size of the array and determine how many bytes it uses. We then fill it up in this loop with floating point numbers, where array element i is simply set to i. All of this is standard C, nothing GPU specific so far. One thing to note, though, is a common CUDA convention. Data on the CPU, the host, starts with h. Data on the GPU, the device, starts with d. This is just a convention.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// declare GPU memory pointers </span>
+</span><span class='line'><span class="kt">float</span> <span class="o">*</span> <span class="n">d_in</span><span class="p">;</span>
+</span><span class='line'><span class="kt">float</span> <span class="o">*</span> <span class="n">d_out</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If you&rsquo;re accessing data through a point or on the CPU, your pointer better point to something in CPU memory, or you&rsquo;re going to have a bad time. Same thing for the GPU. And the first interesting thing that you see is how to declare a pointer on the GPU. It looks just like a pointer declared on the CPU. It&rsquo;s just a float star.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// allocate GPU memory </span>
+</span><span class='line'><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">d_in</span><span class="p">,</span> <span class="n">ARRAY_BYTES</span><span class="p">);</span>
+</span><span class='line'><span class="n">cudaMalloc</span><span class="p">((</span><span class="kt">void</span><span class="o">**</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">d_out</span><span class="p">,</span> <span class="n">ARRAY_BYTES</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now, to tell Cuda that your data is actually on the GPU, not the CPU. We are using cudaMalloc with two arguments, the pointer and the number of bytes to allocate. cudaMalloc means allocate the data on the GPU whereas, a plain Malloc would mean allocate the data on a CPU.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// transfer the array to the GPU </span>
+</span><span class='line'><span class="n">cudaMemcpy</span><span class="p">(</span><span class="n">d_in</span><span class="p">,</span> <span class="n">h_in</span><span class="p">,</span> <span class="n">ARRAY_BYTES</span><span class="p">,</span> <span class="n">cudaMemcpyHostToDevice</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next thing we do is actually copy the data from the CPU the array h_in on to the GPU, the array din. This call is cudaMemcpy. It&rsquo;s just like a regular Memcpy, but it takes four arguments instead of three. The first three arguments are the same as regular C Memcpy, the destination, the source, and the number of bytes. The fourth argument says the direction of the transfer. The three choices are Cuda memory host to device, Cuda memory device to host, and Cuda memory device to device.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// launch the kernel </span>
+</span><span class='line'><span class="n">square</span><span class="o">&lt;&lt;&lt;</span><span class="n">dim3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">dim3</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span><span class="o">&gt;&gt;&gt;</span><span class="p">(</span><span class="n">d_out</span><span class="p">,</span> <span class="n">d_in</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now consider how do we actually launch kernal on the GPU. So, here is a new piece of syntax in CUDA, the CUDA launch operator. So, the CUDA launch operator</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">&lt;&lt;&lt;</span><span class="n">someparameters</span><span class="o">&gt;&gt;&gt;</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>So, this line says, launch the kernel name square on one block of 64 elements. Then, the arguments to the kernel are two pointers, d_out and d_in. This code tells the CPU to launch on the GPU 64 copies of the kernel on 64 threads. Note that we can only call the kernel on GPU data, not CPU data. And this cudaMemcpy call will move memory from device to host, and place it in h_out.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="c1">// print out the resulting array </span>
+</span><span class='line'><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="p">;</span> <span class="n">ARRAY_SIZE</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(</span><span class="s">&quot;%f&quot;</span><span class="p">,</span> <span class="n">h_out</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+</span><span class='line'>    <span class="n">printf</span><span class="p">(((</span><span class="n">i</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">?</span> <span class="s">&quot;</span><span class="se">\t</span><span class="s">&quot;</span> <span class="o">:</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="p">}</span>
+</span><span class='line'>    <span class="n">cudaFree</span><span class="p">(</span><span class="n">d_in</span><span class="p">);</span> <span class="n">c</span>
+</span><span class='line'>    <span class="nf">udaFree</span><span class="p">(</span><span class="n">d_out</span><span class="p">);</span>
+</span><span class='line'>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The next thing we do is print it out. We are just walking through the h_out array, we are printing four things per line, so we are;putting tabs in and then a new line after four, and then we free the memory that we allocated on the GPU and return 0. So, that&rsquo;s all the CPU code.; ;Most programs are going to have you create some data on the CPU, allocate;some data on the GPU, copy memory from CPU to GPU, launch some kernels that will run on the GPU, copy the result back to the CPU and then, continue;to process them, print them, and so on.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">__global__</span> <span class="kt">void</span> <span class="nf">square</span><span class="p">(</span><span class="kt">float</span> <span class="o">*</span> <span class="n">d_out</span><span class="p">,</span> <span class="kt">float</span> <span class="o">*</span> <span class="n">d_in</span><span class="p">){</span>
+</span><span class='line'>    <span class="kt">int</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">threadIdx</span><span class="p">.</span><span class="n">x</span><span class="p">;</span>
+</span><span class='line'>    <span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">d_in</span><span class="p">[</span><span class="n">idx</span><span class="p">];</span>
+</span><span class='line'>    <span class="n">d_out</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">f</span><span class="p">;</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now let&rsquo;s look at the kernel itself. Recall that this will look like a serial program that will run on one thread. And the CPU is responsible for launching that;program on many parallel threads. This kernel indeed looks exactly like a serial program.</p>
+
+<p>Just know that this is the way;that CUDA knows this code is a kernel as opposed to CPU code. Next we have void. Void just means the kernel doesn&rsquo;t return a value. Instead it writes the;output into the pointer specified in its argument list. This kernel takes two arguments. These are pointers to the output and the input arrays.</p>
+
+<p>Let&rsquo;s walk through the body of the kernel. So the first line of the body here. CUDA has a built in variable called thread index, threadIDX, and that&rsquo;s going to tell each thread its index within a block. threadIDX is actually a c struct with 3 members. .x, .y, and .z. the c struct is called a dim 3. Now, we will launch 64 threads. So for the first instance of those threads, threadIDX.x will return zero, for the second instance, 1. And so on, up to 63 for the last element. Everything else in this kernel just looks like straightforward C. It looks just like a serial program.</p>
+
+<p>For each thread, we&rsquo;re going to first read the array element corresponding to this thread index from global memory. We are going to store it in this float;variable f. We are then going to square f, and we&rsquo;re going to write that value back to global memory, in the output array element that corresponds to our thread index.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Prabeesh K</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2013-03-07T11:00:00+05:30'><span class='date'><span class='date-month'>Mar</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>11:00 am</span></time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2012/07/14/running-arduino-codes-in-stand-alone/" title="Previous Post: Running Arduino codes in stand alone atmega8">&laquo; Running Arduino codes in stand alone atmega8</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2013/03/30/paint-app-using-javascript-and-canvas/" title="Next Post: Paint app using JavaScript and Canvas">Paint app using JavaScript and Canvas &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <div align="center">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- blog-bottom-1 -->
+      <ins class="adsbygoogle"
+        style="display:inline-block;width:336px;height:280px"
+        data-ad-client="ca-pub-1368619820510426"
+        data-ad-slot="4546933191"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div> 
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">Install Apache Spark on Ubuntu-14.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/">Creating Assembled JAR for Standalone Spark Application</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">A Standalone Spark Application in Scala</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/">Installing Apache Spark on Ubuntu-12.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/">Running Mesos-0.13.0 on Ubuntu-12.04</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/prabeesh">@prabeesh</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'prabeesh',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+prabeeshk?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-side -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="2778298790"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script> 
+  </aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Prabeesh K -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prabeeshk';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

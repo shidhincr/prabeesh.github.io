@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Install Apache Spark on Ubuntu-14.04 - This is One of the Solutions</title>
+  <meta name="author" content="Prabeesh K">
+
+  
+  <meta name="description" content="set up Spark on Ubuntu, Install Spark on Ubuntu, Apache Spark set up in Ubuntu">
+  <meta name="keywords" content="install spark on ubuntuspark installation on ubuntinstalling spark on ubuntuapache spark installation guideinstalling apache sparkspark on ubuntuapache spark installationinstall spark in ubunthow to install spark on ubuntuapache spark cluster">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56250765-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">This is One of the Solutions</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.prabeeshk.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-top -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="5110289998"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  <article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Install Apache Spark on Ubuntu-14.04</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-10-31T13:58:31+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>1:58 pm</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>On of the <a href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/">previous post</a> mentioning about install Spark-0.8.0 in Ubuntu-12.04. In this post  explain about detailed steps to set up Spark-1.1.0 in  Ubuntu machine. For running Spark in Ubuntu machine should install Java.  Using following commands  easily install Java in Ubuntu machine.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-add-repository ppa:webupd8team/java
+</span><span class='line'>$ sudo apt-get update
+</span><span class='line'>$ sudo apt-get install oracle-java7-installer</span></code></pre></td></tr></table></div></figure>
+
+
+<p> To check the Java installation is successful</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ java -version</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It shows installed java version</p>
+
+<p><code>
+java version "1.7.0_72"_
+Java(TM) SE Runtime Environment (build 1.7.0_72-b14)_
+Java HotSpot(TM) 64-Bit Server VM (build 24.72-b04, mixed mode)
+</code></p>
+
+<p>In next step is install Scala, follow the following
+instructions to set up Scala. First download the Scala from <a href="http://www.scala-lang.org/download/2.10.4.html">here</a></p>
+
+<p>Copy downloaded file to some location for example <em>/urs/local/src</em>,
+untar the file and set path variable,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget http://www.scala-lang.org/files/archive/scala-2.10.4.tgz
+</span><span class='line'>$ sudo mkdir /usr/local/src/scala
+</span><span class='line'>$ sudo cp scala-2.10.4.tgz /usr/local/src/scala
+</span><span class='line'>$ sudo tar xvf /usr/local/src/scala-2.10.4.tgz</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ vi .bashrc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And add following in the end of the file</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export SCALA_HOME=/usr/local/src/scala/scala-2.10.4
+</span><span class='line'>export PATH=$SCALA_HOME/bin:$PATH</span></code></pre></td></tr></table></div></figure>
+
+
+<p>restart bashrc</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ . .bashrc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To check the Scala is successful</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ scala -version</span></code></pre></td></tr></table></div></figure>
+
+
+<p>It shows installed Scala version
+<code>
+Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
+</code></p>
+
+<p>Or just type scala. It goes to scala interactive shell</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ scala
+</span><span class='line'>scala&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz">here</a></p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz
+</span><span class='line'>$ tar xvf spark-1.1.0.tgz </span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Building</h3>
+
+<p>SBT(Simple Build Tool) is used for building Spark, which is bundled with it. To compile the code</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd spark-1.1.0
+</span><span class='line'>
+</span><span class='line'>$ sbt/sbt assembly</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Building take some time. After successfully packing you can test a sample program</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./bin/run-example SparkPi 10</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then you get the output as Pi is roughly 3.14634. Spark is ready to fire</p>
+
+<p>For more detail <a href="http://spark.apache.org/docs/1.1.1/">visit</a></p>
+
+<h3>Spark Interactive Shell</h3>
+
+<p>You can run Spark interactively through the Scala shell</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./spark-shell</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">val</span> <span class="n">textFile</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="o">(</span><span class="s">&quot;README.md&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">textFile</span><span class="o">.</span><span class="n">count</span><span class="o">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into <em>spark-shell</em> just follow the instructions</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="s">&quot;streaming-mqtt/package&quot;</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">then</span> <span class="n">add</span> <span class="k">this</span> <span class="k">package</span> <span class="nn">into</span> <span class="n">the</span> <span class="n">classpath</span><span class="k">:</span>
+</span><span class='line'>
+</span><span class='line'><span class="kt">$</span> <span class="kt">bin/spark-shell</span> <span class="kt">--driver-class-path</span>
+</span><span class='line'><span class="n">external</span><span class="o">/</span><span class="n">mqtt</span><span class="o">/</span><span class="n">target</span><span class="o">/</span><span class="n">scala</span><span class="o">-</span><span class="mf">2.10</span><span class="o">/</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">-</span><span class="n">mqtt_2</span><span class="o">.</span><span class="mi">10</span><span class="o">-</span><span class="mf">1.1</span><span class="o">.</span><span class="mf">0.</span><span class="n">jar</span>
+</span><span class='line'><span class="n">scala</span> <span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.apache.spark.streaming.mqtt._</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using this you can check your code line by line.</p>
+
+<h3>Accessing Hadoop Filesystems</h3>
+
+<p>If you have already the build source package, rebuild it against the hadoop version as follows</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="n">clean</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You can change this by setting the SPARK_HADOOP_VERSION variable. Here uses Hadoop 2.0.0-cdh4.3.0</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="nc">SPARK_HADOOP_VERSION</span><span class="k">=</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">mr1</span><span class="o">-</span><span class="n">cdh4</span><span class="o">.</span><span class="mf">3.0</span> <span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="n">assembly</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>After successfully build. You can read  and write data into cdh4.3.0 clusters.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="o">.</span><span class="n">bin</span><span class="o">/</span><span class="n">spark</span><span class="o">-</span><span class="n">shell</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="k">var</span> <span class="n">file</span> <span class="k">=</span> <span class="n">sc</span><span class="o">.</span><span class="n">textFile</span><span class="o">(</span><span class="s">&quot;hdfs://IP:8020/path/to/textfile.txt&quot;</span><span class="o">)</span>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span>  <span class="n">file</span><span class="o">.</span><span class="n">flatMap</span><span class="o">(</span><span class="n">line</span> <span class="k">=&gt;</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="o">(</span><span class="s">&quot;,&quot;</span><span class="o">)).</span><span class="n">map</span><span class="o">(</span><span class="n">word</span> <span class="k">=&gt;</span> <span class="o">(</span><span class="n">word</span><span class="o">,</span> <span class="mi">1</span><span class="o">)).</span><span class="n">reduceByKey</span><span class="o">(</span><span class="k">_</span><span class="o">+</span><span class="k">_</span><span class="o">)</span>
+</span><span class='line'><span class="n">scala</span><span class="o">&gt;</span> <span class="n">count</span><span class="o">.</span><span class="n">saveAsTextFile</span><span class="o">(</span><span class="s">&quot;hdfs://IP:8020/path/to/ouput&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>You may find more <a href="http://spark.apache.org/docs/1.1.1/quick-start.html">here</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Prabeesh K</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-10-31T13:58:31+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>31</span><span class='date-suffix'>st</span>, <span class='date-year'>2014</span></span> <span class='time'>1:58 pm</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apache-spark/'>apache spark</a>, <a class='category' href='/blog/categories/bigdata/'>bigdata</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/" title="Previous Post: Creating assembled JAR for Standalone Spark Application">&laquo; Creating assembled JAR for Standalone Spark Application</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <div align="center">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- blog-bottom-1 -->
+      <ins class="adsbygoogle"
+        style="display:inline-block;width:336px;height:280px"
+        data-ad-client="ca-pub-1368619820510426"
+        data-ad-slot="4546933191"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div> 
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">Install Apache Spark on Ubuntu-14.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/">Creating Assembled JAR for Standalone Spark Application</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">A Standalone Spark Application in Scala</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/">Installing Apache Spark on Ubuntu-12.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/">Running Mesos-0.13.0 on Ubuntu-12.04</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/prabeesh">@prabeesh</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'prabeesh',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+prabeeshk?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-side -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="2778298790"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script> 
+  </aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Prabeesh K -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prabeeshk';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

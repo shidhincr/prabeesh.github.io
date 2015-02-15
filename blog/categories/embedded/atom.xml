@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Embedded | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/embedded/atom.xml" rel="self"/>
+  <link href="http://blog.prabeeshk.com/"/>
+  <updated>2015-02-15T22:46:34+05:30</updated>
+  <id>http://blog.prabeeshk.com/</id>
+  <author>
+    <name><![CDATA[Prabeesh K]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running Arduino Codes in Stand Alone Atmega8]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2012/07/14/running-arduino-codes-in-stand-alone/"/>
+    <updated>2012-07-14T02:23:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2012/07/14/running-arduino-codes-in-stand-alone</id>
+    <content type="html"><![CDATA[<p>An Arduino board consists of an 8-bit Atmel AVR microcontroller with complementary components to facilitate programming and incorporation into other circuits.
+If you wish to study the arduino codes ,then one of the major problems is the availability and cost of the Arduino board. If you have an atmega8 microcontroller  then you have to study the Arduino codes by simply changing some options in Arduino IDE.</p>
+
+<p>First download the arduino IDE(I am using Arduino 1.0). Next you have to an avr  programmer(I am using usbasp and usbtiny).
+Launch the arduino IDE as root.Then select your programmer from tools and also select your board  in this case select ATmega8.
+Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enable internal 8MHz clock by</p>
+
+<pre><code class="c">-U lfuse:w:0xa4:m -U hfuse:w:0xcc:m
+</code></pre>
+
+<p>Or you can enable the external crystal by setting the fuse byte as</p>
+
+<pre><code class="c">-U lfuse:w:0xef:m
+</code></pre>
+
+<p>and put a  8MHz crystal.</p>
+
+<p>You can find mapping between atmega8 and arduino here</p>
+
+<p><img class="center" src="/images/arduino.png" width="600" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+]]></content>
+  </entry>
+  
+</feed>

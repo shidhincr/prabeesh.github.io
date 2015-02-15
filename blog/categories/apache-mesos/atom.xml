@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apache Mesos | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/apache-mesos/atom.xml" rel="self"/>
+  <link href="http://blog.prabeeshk.com/"/>
+  <updated>2015-02-15T22:46:34+05:30</updated>
+  <id>http://blog.prabeeshk.com/</id>
+  <author>
+    <name><![CDATA[Prabeesh K]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Running Mesos-0.13.0 on Ubuntu-12.04]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/"/>
+    <updated>2013-10-07T10:53:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204</id>
+    <content type="html"><![CDATA[<p>You will need the following packages to run Mesos.
+<code>
+$ sudo apt-get install python2.7-dev g++ libcppunit-dev libunwind7-dev git libcurl4-nss-dev
+</code>
+You need to have Java installed, or the JAVA_HOME environment variable pointing to a Java installation.</p>
+
+<p>You can download the Mesos distribution from <a href="http://www.apache.org/dyn/closer.cgi/mesos/0.13.0/">here</a>. After that untar the downloaded file
+<code>
+$ tar xvf mesos-0.13.0.tar.gz
+</code></p>
+
+<h3>Building and Installing</h3>
+
+<pre><code class="">$ cd mesos-0.13.0
+$ mkdir build
+$ cd build
+$ sudo  ../configure --prefix=/home/user/mesos
+$ sudo make
+$ sudo make check
+$ sudo make install
+</code></pre>
+
+<p>You can pass the &ndash;prefix option while configuring to tell where to install. For example, pass<strong><strong>&ndash;prefix=/home/user/mesos</strong></strong>. By default the prefix is <strong><strong>/usr/local</strong></strong>.
+Once you are done with the installation, it is now time to start your mesos cluster:</p>
+
+<p>Go into the directory where you built Mesos.
+<code>
+$ cd mesos-0.13.0/build/bin
+</code>
+Run the command to launch the master.
+<code>
+$ sh mesos-master.sh
+</code><br/>
+Take note of the IP and port that the master is running on, which will look something like <strong><strong>[IP of the machine]:5050</strong></strong>.
+URL of master: <strong>mesos://[IP of the machine]:5050</strong>. View the master&rsquo;s web UI at <strong><code>http://[IP of the machine]:5050</code></strong>.</p>
+
+<p>Copy mesos-0.13.0 and mesos to the same paths on all the nodes in the cluster. To launch a slave go to the directory
+<code>
+$ cd mesos-0.13.0/build/src
+</code>
+Run the command to launch the slave.
+<code>
+$ sh mesos-slave  --master=[IP of the mesos master machine ]:5050
+</code>
+The slave will show up on the mesos master&rsquo;s web UI.</p>
+
+<h3>Mesos Client</h3>
+
+<p>Copy the libmesos.so from prefix folder(/home/user/mesos/lib) of the mesos master to /usr/local/lib of the client machine and install the following package
+<code>
+$ sudo apt-get install libunwind7-dev
+</code><br/>
+Now you can  run  applications against the Mesos cluster from client machine.</p>
+]]></content>
+  </entry>
+  
+</feed>

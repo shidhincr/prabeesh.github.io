@@ -1,0 +1,421 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Apache Spark | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/apache-spark/atom.xml" rel="self"/>
+  <link href="http://blog.prabeeshk.com/"/>
+  <updated>2015-02-15T22:46:34+05:30</updated>
+  <id>http://blog.prabeeshk.com/</id>
+  <author>
+    <name><![CDATA[Prabeesh K]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Install Apache Spark on Ubuntu-14.04]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/"/>
+    <updated>2014-10-31T13:58:31+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04</id>
+    <content type="html"><![CDATA[<p>On of the <a href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/">previous post</a> mentioning about install Spark-0.8.0 in Ubuntu-12.04. In this post  explain about detailed steps to set up Spark-1.1.0 in  Ubuntu machine. For running Spark in Ubuntu machine should install Java.  Using following commands  easily install Java in Ubuntu machine.
+<code>
+    $ sudo apt-add-repository ppa:webupd8team/java
+    $ sudo apt-get update
+    $ sudo apt-get install oracle-java7-installer
+</code>
+ To check the Java installation is successful
+<code>
+    $ java -version
+</code>
+It shows installed java version</p>
+
+<p><code>
+java version "1.7.0_72"_
+Java(TM) SE Runtime Environment (build 1.7.0_72-b14)_
+Java HotSpot(TM) 64-Bit Server VM (build 24.72-b04, mixed mode)
+</code></p>
+
+<p>In next step is install Scala, follow the following
+instructions to set up Scala. First download the Scala from <a href="http://www.scala-lang.org/download/2.10.4.html">here</a></p>
+
+<p>Copy downloaded file to some location for example <em>/urs/local/src</em>,
+untar the file and set path variable,
+<code>
+    $ wget http://www.scala-lang.org/files/archive/scala-2.10.4.tgz
+    $ sudo mkdir /usr/local/src/scala
+    $ sudo cp scala-2.10.4.tgz /usr/local/src/scala
+    $ sudo tar xvf /usr/local/src/scala-2.10.4.tgz
+</code>
+<code>
+    $ vi .bashrc
+</code>
+And add following in the end of the file
+<code>
+    export SCALA_HOME=/usr/local/src/scala/scala-2.10.4
+    export PATH=$SCALA_HOME/bin:$PATH
+</code>
+restart bashrc
+<code>
+    $ . .bashrc
+</code>
+To check the Scala is successful
+<code>
+    $ scala -version
+</code>
+It shows installed Scala version
+<code>
+Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
+</code></p>
+
+<p>Or just type scala. It goes to scala interactive shell
+<code>
+    $ scala
+    scala&gt;
+</code>
+Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz">here</a>
+<code>
+    $ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz
+    $ tar xvf spark-1.1.0.tgz
+</code></p>
+
+<h3>Building</h3>
+
+<p>SBT(Simple Build Tool) is used for building Spark, which is bundled with it. To compile the code
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd spark-1.1.0&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;$ sbt/sbt assembly
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;Building take some time. After successfully packing you can test a sample program
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;$ ./bin/run-example SparkPi 10
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;Then you get the output as Pi is roughly 3.14634. Spark is ready to fire
+</span><span class='line'>
+</span><span class='line'>For more detail [visit](http://spark.apache.org/docs/1.1.1/)
+</span><span class='line'>
+</span><span class='line'>###Spark Interactive Shell
+</span><span class='line'>You can run Spark interactively through the Scala shell
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;$ ./spark-shell
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;&lt;code&gt;
+</span><span class='line'>&lt;/code&gt;scala
+</span><span class='line'>scala&gt; val textFile = sc.textFile(&ldquo;README.md&rdquo;)
+</span><span class='line'>scala&gt; textFile.count()
+</span><span class='line'>&lt;code&gt;
+</span><span class='line'>If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into _spark-shell_ just follow the instructions
+</span><span class='line'>&lt;/code&gt;
+</span><span class='line'>$ sbt/sbt &ldquo;streaming-mqtt/package&rdquo;&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;then add this package into the classpath:
+</span><span class='line'>
+</span><span class='line'>$ bin/spark-shell --driver-class-path
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.1.0.jar
+</span><span class='line'>scala &gt; import org.apache.spark.streaming.mqtt._</span></code></pre></td></tr></table></div></figure>
+Using this you can check your code line by line.</p>
+
+<h3>Accessing Hadoop Filesystems</h3>
+
+<p>If you have already the build source package, rebuild it against the hadoop version as follows
+<code>
+    $ sbt/sbt clean
+</code>
+You can change this by setting the SPARK_HADOOP_VERSION variable. Here uses Hadoop 2.0.0-cdh4.3.0
+<code>
+    $ SPARK_HADOOP_VERSION=2.0.0-mr1-cdh4.3.0 sbt/sbt assembly
+</code>
+After successfully build. You can read  and write data into cdh4.3.0 clusters.
+<code>
+    $ .bin/spark-shell
+</code>
+<code>scala
+    scala&gt; var file = sc.textFile("hdfs://IP:8020/path/to/textfile.txt")
+    scala&gt;  file.flatMap(line =&gt; line.split(",")).map(word =&gt; (word, 1)).reduceByKey(_+_)
+    scala&gt; count.saveAsTextFile("hdfs://IP:8020/path/to/ouput")
+</code>
+You may find more <a href="http://spark.apache.org/docs/1.1.1/quick-start.html">here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Assembled JAR for Standalone Spark Application]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/"/>
+    <updated>2014-04-08T09:47:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly</id>
+    <content type="html"><![CDATA[<p>In the <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous post</a> shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.</p>
+
+<p>Add sbt-assembly plugin in <strong><em>project/plugin.sbt</em></strong>
+<code>scala
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.9.1")
+</code></p>
+
+<p>Specify sbt-assembly.git as a dependency in project/project/build.scala</p>
+
+<pre><code class="scala">import sbt._
+
+object Plugins extends Build {
+  lazy val root = Project("root", file(".")) dependsOn(
+    uri("git://github.com/sbt/sbt-assembly.git#0.9.1")
+  )
+}
+</code></pre>
+
+<p>In build.sbt file add the following contents
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">AssemblyKeys._</span> <span class="c1">// put this at the top of the file,leave the next line blank&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">assemblySettings</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nc">Use</span> <span class="n">full</span> <span class="n">keys</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">assembly</span> <span class="n">plugin</span><span class="o">.</span> <span class="nc">For</span> <span class="n">more</span> <span class="n">details</span> <span class="o">[</span><span class="kt">refer</span><span class="o">](</span><span class="n">https</span><span class="o">://</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span><span class="o">-</span><span class="n">assembly</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">target</span>                        <span class="n">assembly</span><span class="o">-</span><span class="n">jar</span><span class="o">-</span><span class="n">name</span>             <span class="n">test</span>
+</span><span class='line'><span class="n">assembly</span><span class="o">-</span><span class="n">option</span>               <span class="n">main</span><span class="o">-</span><span class="k">class</span>                    <span class="nc">full</span><span class="o">-</span><span class="n">classpath</span>
+</span><span class='line'><span class="n">dependency</span><span class="o">-</span><span class="n">classpath</span>          <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">files</span>       <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">jars</span>
+</span></code></pre></td></tr></table></div></figure>
+If multiple files share the same relative path the default strategy is to verify that all candidates have the same contents and error out otherwise. This behavior can be configured for Spark projects using assembly-merge-strategy as follows.</p>
+
+<pre><code class="scala">mergeStrategy in assembly &lt;&lt;= (mergeStrategy in assembly) { (old) =&gt;
+  {
+    case PathList("javax", "servlet", xs @ _*) =&gt; MergeStrategy.last
+    case PathList("org", "apache", xs @ _*) =&gt; MergeStrategy.last
+    case PathList("com", "esotericsoftware", xs @ _*) =&gt; MergeStrategy.last
+    case "about.html" =&gt; MergeStrategy.rename
+    case x =&gt; old(x)
+  }
+}
+</code></pre>
+
+<p>From the root folder run
+<code>
+sbt/sbt assembly
+</code>
+the assembly plugin then packs the class files and all the dependencies into a single JAR file: target/scala_2.10/TwitterPopularTags-assembly-0.3.0.jar.</p>
+
+<p>You can find an example project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis">here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Standalone Spark Application in Scala]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2014/04/01/a-standalone-spark-application-in-scala/"/>
+    <updated>2014-04-01T22:56:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2014/04/01/a-standalone-spark-application-in-scala</id>
+    <content type="html"><![CDATA[<p>Sharing  some ideas about how to create a Spark-streaming stand-alone application and how to run the Spark applications in scala-SDK (Eclipse IDE).</p>
+
+<h2>Building Spark Application using SBT</h2>
+
+<p>A Standalone application in Scala using Apache Spark API. The application is build using Simple Build Tool(SBT).</p>
+
+<p>For  creating a stand alone app take the twitter popular tag <a href="https://github.com/apache/spark/blob/branch-0.9/examples/src/main/scala/org/apache/spark/streaming/examples/TwitterPopularTags.scala">example</a></p>
+
+<p>This program calculates popular hashtags (popular topics) over sliding 10 and 60 second windows from a Twitter stream. The stream is instantiated with credentials and optionally filters supplied by the command line arguments.</p>
+
+<p>But here modified the code for talking twitter authentication credentials through command line argument. So it needs to give the arguments as <master> <consumerKey> <consumerSecret> <accessToken> <accessTokenSecret> <filters>.
+<code>Scala
+// Twitter Authentication credentials  
+System.setProperty("twitter4j.oauth.consumerKey", args(1))  
+System.setProperty("twitter4j.oauth.consumerSecret", args(2))  
+System.setProperty("twitter4j.oauth.accessToken", args(3))  
+System.setProperty("twitter4j.oauth.accessTokenSecret", args(4))  
+</code>
+If you want to read twitter authentication credential from file, refer this <a href="https://github.com/pwendell/spark-twitter-collection/blob/master/TwitterUtils.scala">link</a></p>
+
+<p>The sbt configuration file. For more detail about sbt <a href="http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html">refer</a>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='Scala'><span class='line'><span class="n">name</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="nc">TwitterPopularTags</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">version</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">0</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">scalaVersion</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">2.10</span><span class="o">.</span><span class="mi">3</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">core</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">-</span><span class="n">twitter</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">resolvers</span> <span class="o">+=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="nc">Akka</span> <span class="nc">Repository</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="n">at</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;http://repo.akka.io/releases/&quot;</span><span class="o">&gt;</span><span class="n">http</span><span class="o">://</span><span class="n">repo</span><span class="o">.</span><span class="n">akka</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">releases</span><span class="o">/&lt;/</span><span class="n">a</span><span class="o">&gt;&amp;</span><span class="n">rdquo</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
+You can find the project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis/tree/0.1.0">here</a></p>
+
+<h2>Spark programming in Eclipse</h2>
+
+<p>Using sbt eclipse plugin, sbt project can run on Eclipse IDE.  For more details find <a href="https://github.com/typesafehub/sbteclipse">here</a>
+<code>Scala
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.1.0")
+</code>
+then run from root folder of the project
+<code>
+sbt/sbt eclipse
+</code>
+This command  creates a project compatible with Eclipse. Upon opening the eclipse IDE this project can now be imported and the executed with spark.</p>
+
+<p>You can find the sbt eclipse project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis/tree/0.2.0">here</a></p>
+
+<p>To avoid generating eclipse source entries for the java directories and put all libs in the lib_managed directory, that way we can distribute eclipse project files, for this - add the contents to build.sbt
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='Scala'><span class='line'><span class="o">/&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">put</span> <span class="n">all</span> <span class="n">libs</span> <span class="n">in</span> <span class="n">the</span> <span class="n">lib_managed</span> <span class="n">directory</span><span class="o">,</span>
+</span><span class='line'><span class="n">that</span> <span class="n">way</span> <span class="n">we</span> <span class="n">can</span> <span class="n">distribute</span> <span class="n">eclipse</span> <span class="n">project</span> <span class="n">files</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;/&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">retrieveManaged</span> <span class="o">:=</span> <span class="kc">true</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">EclipseKeys</span><span class="o">.</span><span class="n">relativizeLibs</span> <span class="o">:=</span> <span class="kc">true</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;//</span> <span class="nc">Avoid</span> <span class="n">generating</span> <span class="n">eclipse</span> <span class="n">source</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">the</span> <span class="n">java</span> <span class="n">directories</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;(</span><span class="n">unmanagedSourceDirectories</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;&amp;</span><span class="n">lt</span><span class="o">;</span><span class="k">=</span> <span class="o">(</span><span class="n">scalaSource</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">)(</span><span class="nc">Seq</span><span class="o">(</span><span class="k">_</span><span class="o">))&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;(</span><span class="n">unmanagedSourceDirectories</span> <span class="n">in</span> <span class="nc">Test</span><span class="o">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;&amp;</span><span class="n">lt</span><span class="o">;</span><span class="k">=</span> <span class="o">(</span><span class="n">scalaSource</span> <span class="n">in</span> <span class="nc">Test</span><span class="o">)(</span><span class="nc">Seq</span><span class="o">(</span><span class="k">_</span><span class="o">))&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Installing Apache Spark on Ubuntu-12.04]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/"/>
+    <updated>2013-11-26T12:24:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204</id>
+    <content type="html"><![CDATA[<p>Apache Spark is an open source in memory cluster computing framework. Initially developed in UC Berkely AMPLab and now an Apache Incubator Project.    Spark is a cluster computing framework designed for low-latency iterative jobs and interactive use from an interpreter. It provides clean, language-integrated APIs in Scala, Java, and Python, with a rich array of parallel operators. You may read more about it <a href="http://spark.apache.org/">here</a></p>
+
+<p>You can download the Apache Spark distribution(0.8.0-incubating) from <a href="http://d3kbcqa49mib13.cloudfront.net/spark-0.8.0-incubating.tgz">here</a>. After that untar the downloaded file.
+<code>
+$ tar xvf spark-0.8.0-incubating.tgz
+</code>
+You need to have Scala installed, or the SCALA_HOME environment variable pointing to a Scala installation.</p>
+
+<h3>Building</h3>
+
+<p>SBT(Simple Build Tool) is used for building Spark, which is bundled with it. To compile the code
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='Scala'><span class='line'><span class="n">$</span> <span class="n">cd</span> <span class="n">spark</span><span class="o">-</span><span class="mf">0.8</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">$sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="n">assembly</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nc">Building</span> <span class="n">take</span> <span class="n">some</span> <span class="n">time</span><span class="o">.</span> <span class="nc">After</span> <span class="n">successfully</span> <span class="n">packing</span> <span class="n">you</span> <span class="n">can</span> <span class="n">test</span> <span class="n">a</span> <span class="n">sample</span> <span class="n">program</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">$</span><span class="o">./</span><span class="n">run</span><span class="o">-</span><span class="n">example</span> <span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">.</span><span class="n">examples</span><span class="o">.</span><span class="nc">SparkPi</span> <span class="n">local</span>
+</span></code></pre></td></tr></table></div></figure>
+Then you get the output as
+Pi is roughly 3.14634. Spark is ready to fire</p>
+
+<h3>Spark Interactive Shell</h3>
+
+<p>You can run Spark interactively through the Scala shell
+<code>
+$./spark-shell
+</code>
+<code>scala
+scala&gt; val textFile = sc.textFile("README.md")
+scala&gt; textFile.count()
+</code>
+Using this you can check your code line by line.</p>
+
+<h3>Accessing Hadoop Filesystems</h3>
+
+<p>You can run Spark along with your existing Hadoop Cluster. To access Hadoop data from Spark, just use a hdfs://URL.  Run a word count example in the shell, taking input from hdfs and writing output back to hdfs. For using hdfs you must rebuild Spark against the same version that your hdfs cluster uses. From the Spark download page, you may download a prebuilt package.
+If you have already the build source package, rebuild it against the hadoop version as follows
+<code>
+$sbt/sbt clean
+</code>
+You can change this by setting the SPARK_HADOOP_VERSION variable. Here uses Hadoop 2.0.0-cdh4.3.0
+<code>
+$SPARK_HADOOP_VERSION=2.0.0-mr1-cdh4.3.0 sbt/sbt assembly
+</code></p>
+
+<p>After successfully build. You can read  and write data into cdh4.3.0 clusters.
+<code>
+$./spark-shell
+</code>
+<code>scala
+scala&gt; var file = sc.textFile("hdfs://IP:8020/path/to/textfile.txt")
+scala&gt;  file.flatMap(line =&gt; line.split(",")).map(word =&gt; (word, 1)).reduceByKey(_+_)
+scala&gt; count.saveAsTextFile("hdfs://IP:8020/path/to/ouput")
+</code>
+You may find more <a href="http://spark.apache.org/docs/latest/quick-start.html">here</a></p>
+]]></content>
+  </entry>
+  
+</feed>

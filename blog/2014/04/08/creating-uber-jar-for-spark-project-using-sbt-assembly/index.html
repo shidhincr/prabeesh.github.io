@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Creating Assembled JAR for Standalone Spark Application - This is One of the Solutions</title>
+  <meta name="author" content="Prabeesh K">
+
+  
+  <meta name="description" content="creating single jar for spark project, creating fat jar for spark application, creating spark single jar using sbt-assemby, spark using sbt-assembly">
+  <meta name="keywords" content="spark single jarspark sbt assembledjarspark sbt assembly jarsbt-assemblysbt spark fat jarsbt assembly spark jarspark sbt assembly tutorialsbt spark uberjarsbt-assembly tutorialsbt sparksingle jar spark application">
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="//fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="//fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-56250765-2']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">This is One of the Solutions</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="https://www.google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:blog.prabeeshk.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-top -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="5110289998"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  <article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Creating Assembled JAR for Standalone Spark Application</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2014-04-08T09:47:00+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:47 am</span></time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>In the <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous post</a> shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.</p>
+
+<p>Add sbt-assembly plugin in <strong><em>project/plugin.sbt</em></strong></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">addSbtPlugin</span><span class="o">(</span><span class="s">&quot;com.eed3si9n&quot;</span> <span class="o">%</span> <span class="s">&quot;sbt-assembly&quot;</span> <span class="o">%</span> <span class="s">&quot;0.9.1&quot;</span><span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Specify sbt-assembly.git as a dependency in project/project/build.scala</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">sbt._</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">object</span> <span class="nc">Plugins</span> <span class="k">extends</span> <span class="nc">Build</span> <span class="o">{</span>
+</span><span class='line'>  <span class="k">lazy</span> <span class="k">val</span> <span class="n">root</span> <span class="k">=</span> <span class="nc">Project</span><span class="o">(</span><span class="s">&quot;root&quot;</span><span class="o">,</span> <span class="n">file</span><span class="o">(</span><span class="s">&quot;.&quot;</span><span class="o">))</span> <span class="n">dependsOn</span><span class="o">(</span>
+</span><span class='line'>    <span class="n">uri</span><span class="o">(</span><span class="s">&quot;git://github.com/sbt/sbt-assembly.git#0.9.1&quot;</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">)</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In build.sbt file add the following contents</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">AssemblyKeys._</span> <span class="c1">// put this at the top of the file,leave the next line blank</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">assemblySettings</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Use full keys to configure the assembly plugin. For more details <a href="https://github.com/sbt/sbt-assembly">refer</a></p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">target</span>                        <span class="n">assembly</span><span class="o">-</span><span class="n">jar</span><span class="o">-</span><span class="n">name</span>             <span class="n">test</span>
+</span><span class='line'><span class="n">assembly</span><span class="o">-</span><span class="n">option</span>               <span class="n">main</span><span class="o">-</span><span class="k">class</span>                    <span class="nc">full</span><span class="o">-</span><span class="n">classpath</span>
+</span><span class='line'><span class="n">dependency</span><span class="o">-</span><span class="n">classpath</span>          <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">files</span>       <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">jars</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>If multiple files share the same relative path the default strategy is to verify that all candidates have the same contents and error out otherwise. This behavior can be configured for Spark projects using assembly-merge-strategy as follows.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">mergeStrategy</span> <span class="n">in</span> <span class="n">assembly</span> <span class="o">&lt;&lt;=</span> <span class="o">(</span><span class="n">mergeStrategy</span> <span class="n">in</span> <span class="n">assembly</span><span class="o">)</span> <span class="o">{</span> <span class="o">(</span><span class="n">old</span><span class="o">)</span> <span class="k">=&gt;</span>
+</span><span class='line'>  <span class="o">{</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">PathList</span><span class="o">(</span><span class="s">&quot;javax&quot;</span><span class="o">,</span> <span class="s">&quot;servlet&quot;</span><span class="o">,</span> <span class="n">xs</span> <span class="k">@</span> <span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="nc">MergeStrategy</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">PathList</span><span class="o">(</span><span class="s">&quot;org&quot;</span><span class="o">,</span> <span class="s">&quot;apache&quot;</span><span class="o">,</span> <span class="n">xs</span> <span class="k">@</span> <span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="nc">MergeStrategy</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>    <span class="k">case</span> <span class="nc">PathList</span><span class="o">(</span><span class="s">&quot;com&quot;</span><span class="o">,</span> <span class="s">&quot;esotericsoftware&quot;</span><span class="o">,</span> <span class="n">xs</span> <span class="k">@</span> <span class="k">_</span><span class="o">*)</span> <span class="k">=&gt;</span> <span class="nc">MergeStrategy</span><span class="o">.</span><span class="n">last</span>
+</span><span class='line'>    <span class="k">case</span> <span class="s">&quot;about.html&quot;</span> <span class="k">=&gt;</span> <span class="nc">MergeStrategy</span><span class="o">.</span><span class="n">rename</span>
+</span><span class='line'>    <span class="k">case</span> <span class="n">x</span> <span class="k">=&gt;</span> <span class="n">old</span><span class="o">(</span><span class="n">x</span><span class="o">)</span>
+</span><span class='line'>  <span class="o">}</span>
+</span><span class='line'><span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>From the root folder run</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="n">assembly</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>the assembly plugin then packs the class files and all the dependencies into a single JAR file: target/scala_2.10/TwitterPopularTags-assembly-0.3.0.jar.</p>
+
+<p>You can find an example project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis">here</a></p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Prabeesh K</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2014-04-08T09:47:00+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>8</span><span class='date-suffix'>th</span>, <span class='date-year'>2014</span></span> <span class='time'>9:47 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/apache-spark/'>apache spark</a>, <a class='category' href='/blog/categories/bigdata/'>bigdata</a>, <a class='category' href='/blog/categories/sbt/'>sbt</a>, <a class='category' href='/blog/categories/scala/'>scala</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/04/01/a-standalone-spark-application-in-scala/" title="Previous Post: A Standalone Spark Application in Scala">&laquo; A Standalone Spark Application in Scala</a>
+      
+      
+        <a class="basic-alignment right" href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/" title="Next Post: Install Apache Spark on Ubuntu-14.04">Install Apache Spark on Ubuntu-14.04 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <div align="center">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- blog-bottom-1 -->
+      <ins class="adsbygoogle"
+        style="display:inline-block;width:336px;height:280px"
+        data-ad-client="ca-pub-1368619820510426"
+        data-ad-slot="4546933191"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div> 
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">Install Apache Spark on Ubuntu-14.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/">Creating Assembled JAR for Standalone Spark Application</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">A Standalone Spark Application in Scala</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/">Installing Apache Spark on Ubuntu-12.04</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/">Running Mesos-0.13.0 on Ubuntu-12.04</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/prabeesh">@prabeesh</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'prabeesh',
+            count: 5,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+<section class="googleplus">
+  <h1>
+    <a href="https://plus.google.com/+prabeeshk?rel=author">
+      <img src="http://www.google.com/images/icons/ui/gprofile_button-32.png" width="32" height="32">
+      Google+
+    </a>
+  </h1>
+</section>
+
+
+
+  
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-side -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="2778298790"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script> 
+  </aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2015 - Prabeesh K -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'prabeeshk';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) {return;}
+  js = d.createElement(s); js.id = id; js.async = true;
+  js.src = "//connect.facebook.net/en_US/all.js#appId=212934732101925&xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

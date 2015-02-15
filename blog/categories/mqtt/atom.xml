@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mqtt | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/mqtt/atom.xml" rel="self"/>
+  <link href="http://blog.prabeeshk.com/"/>
+  <updated>2015-02-15T22:46:34+05:30</updated>
+  <id>http://blog.prabeeshk.com/</id>
+  <author>
+    <name><![CDATA[Prabeesh K]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[MQTT Scala Publisher and Subscriber Using Eclipse Paho]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2013/08/26/mqtt-scala-publisher-and-subscriber/"/>
+    <updated>2013-08-26T09:41:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2013/08/26/mqtt-scala-publisher-and-subscriber</id>
+    <content type="html"><![CDATA[<p>MQTT is a machine-to-machine (M2M)/Internet of Things connectivity protocol. It was designed with extremely lightweight that support embedded and low power processing device. You may read more about it <a href="http://mqtt.org/">here</a>. MQTT is broker based message queuing system. To work with Mqtt, Mqtt Message broker/server required. <a href="http://mosquitto.org/">Mosquitto</a> is an open source Mqtt Broker. In ubuntu mosquitto can be installed using the command
+<code>
+$ sudo apt-get install mosquitto
+</code>
+Eclipse Paho is one mqtt client work well with mosquitto. You may read more about it <a href="http://www.eclipse.org/paho/">here</a>.</p>
+
+<p>MQTT Scala subscriber and publisher code based on eclipse paho library 0.4.0 is available in <a href="https://github.com/prabeesh/MQTTScalaClient">github</a></p>
+]]></content>
+  </entry>
+  
+</feed>

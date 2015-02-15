@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Sbt | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/sbt/atom.xml" rel="self"/>
+  <link href="http://blog.prabeeshk.com/"/>
+  <updated>2015-02-15T22:46:34+05:30</updated>
+  <id>http://blog.prabeeshk.com/</id>
+  <author>
+    <name><![CDATA[Prabeesh K]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Creating Assembled JAR for Standalone Spark Application]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly/"/>
+    <updated>2014-04-08T09:47:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2014/04/08/creating-uber-jar-for-spark-project-using-sbt-assembly</id>
+    <content type="html"><![CDATA[<p>In the <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous post</a> shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.</p>
+
+<p>Add sbt-assembly plugin in <strong><em>project/plugin.sbt</em></strong>
+<code>scala
+addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.9.1")
+</code></p>
+
+<p>Specify sbt-assembly.git as a dependency in project/project/build.scala</p>
+
+<pre><code class="scala">import sbt._
+
+object Plugins extends Build {
+  lazy val root = Project("root", file(".")) dependsOn(
+    uri("git://github.com/sbt/sbt-assembly.git#0.9.1")
+  )
+}
+</code></pre>
+
+<p>In build.sbt file add the following contents
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="k">import</span> <span class="nn">AssemblyKeys._</span> <span class="c1">// put this at the top of the file,leave the next line blank&lt;/p&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">assemblySettings</span>
+</span><span class='line'><span class="o">&lt;</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nc">Use</span> <span class="n">full</span> <span class="n">keys</span> <span class="n">to</span> <span class="n">configure</span> <span class="n">the</span> <span class="n">assembly</span> <span class="n">plugin</span><span class="o">.</span> <span class="nc">For</span> <span class="n">more</span> <span class="n">details</span> <span class="o">[</span><span class="kt">refer</span><span class="o">](</span><span class="n">https</span><span class="o">://</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span><span class="o">-</span><span class="n">assembly</span><span class="o">)</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">code</span><span class="o">&gt;</span>
+</span><span class='line'><span class="n">target</span>                        <span class="n">assembly</span><span class="o">-</span><span class="n">jar</span><span class="o">-</span><span class="n">name</span>             <span class="n">test</span>
+</span><span class='line'><span class="n">assembly</span><span class="o">-</span><span class="n">option</span>               <span class="n">main</span><span class="o">-</span><span class="k">class</span>                    <span class="nc">full</span><span class="o">-</span><span class="n">classpath</span>
+</span><span class='line'><span class="n">dependency</span><span class="o">-</span><span class="n">classpath</span>          <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">files</span>       <span class="n">assembly</span><span class="o">-</span><span class="n">excluded</span><span class="o">-</span><span class="n">jars</span>
+</span></code></pre></td></tr></table></div></figure>
+If multiple files share the same relative path the default strategy is to verify that all candidates have the same contents and error out otherwise. This behavior can be configured for Spark projects using assembly-merge-strategy as follows.</p>
+
+<pre><code class="scala">mergeStrategy in assembly &lt;&lt;= (mergeStrategy in assembly) { (old) =&gt;
+  {
+    case PathList("javax", "servlet", xs @ _*) =&gt; MergeStrategy.last
+    case PathList("org", "apache", xs @ _*) =&gt; MergeStrategy.last
+    case PathList("com", "esotericsoftware", xs @ _*) =&gt; MergeStrategy.last
+    case "about.html" =&gt; MergeStrategy.rename
+    case x =&gt; old(x)
+  }
+}
+</code></pre>
+
+<p>From the root folder run
+<code>
+sbt/sbt assembly
+</code>
+the assembly plugin then packs the class files and all the dependencies into a single JAR file: target/scala_2.10/TwitterPopularTags-assembly-0.3.0.jar.</p>
+
+<p>You can find an example project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis">here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[A Standalone Spark Application in Scala]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2014/04/01/a-standalone-spark-application-in-scala/"/>
+    <updated>2014-04-01T22:56:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2014/04/01/a-standalone-spark-application-in-scala</id>
+    <content type="html"><![CDATA[<p>Sharing  some ideas about how to create a Spark-streaming stand-alone application and how to run the Spark applications in scala-SDK (Eclipse IDE).</p>
+
+<h2>Building Spark Application using SBT</h2>
+
+<p>A Standalone application in Scala using Apache Spark API. The application is build using Simple Build Tool(SBT).</p>
+
+<p>For  creating a stand alone app take the twitter popular tag <a href="https://github.com/apache/spark/blob/branch-0.9/examples/src/main/scala/org/apache/spark/streaming/examples/TwitterPopularTags.scala">example</a></p>
+
+<p>This program calculates popular hashtags (popular topics) over sliding 10 and 60 second windows from a Twitter stream. The stream is instantiated with credentials and optionally filters supplied by the command line arguments.</p>
+
+<p>But here modified the code for talking twitter authentication credentials through command line argument. So it needs to give the arguments as <master> <consumerKey> <consumerSecret> <accessToken> <accessTokenSecret> <filters>.
+<code>Scala
+// Twitter Authentication credentials  
+System.setProperty("twitter4j.oauth.consumerKey", args(1))  
+System.setProperty("twitter4j.oauth.consumerSecret", args(2))  
+System.setProperty("twitter4j.oauth.accessToken", args(3))  
+System.setProperty("twitter4j.oauth.accessTokenSecret", args(4))  
+</code>
+If you want to read twitter authentication credential from file, refer this <a href="https://github.com/pwendell/spark-twitter-collection/blob/master/TwitterUtils.scala">link</a></p>
+
+<p>The sbt configuration file. For more detail about sbt <a href="http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html">refer</a>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='Scala'><span class='line'><span class="n">name</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="nc">TwitterPopularTags</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">version</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.1</span><span class="o">.</span><span class="mi">0</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">scalaVersion</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">2.10</span><span class="o">.</span><span class="mi">3</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">core</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;,</span>
+</span><span class='line'><span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">org</span><span class="o">.</span><span class="n">apache</span><span class="o">.</span><span class="n">spark</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">-</span><span class="n">twitter</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="o">%</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="mf">0.9</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">incubating</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;)&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">resolvers</span> <span class="o">+=</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;</span><span class="nc">Akka</span> <span class="nc">Repository</span><span class="o">&amp;</span><span class="n">rdquo</span><span class="o">;</span> <span class="n">at</span> <span class="o">&amp;</span><span class="n">ldquo</span><span class="o">;&lt;</span><span class="n">a</span> <span class="n">href</span><span class="o">=</span><span class="s">&quot;http://repo.akka.io/releases/&quot;</span><span class="o">&gt;</span><span class="n">http</span><span class="o">://</span><span class="n">repo</span><span class="o">.</span><span class="n">akka</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">releases</span><span class="o">/&lt;/</span><span class="n">a</span><span class="o">&gt;&amp;</span><span class="n">rdquo</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
+You can find the project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis/tree/0.1.0">here</a></p>
+
+<h2>Spark programming in Eclipse</h2>
+
+<p>Using sbt eclipse plugin, sbt project can run on Eclipse IDE.  For more details find <a href="https://github.com/typesafehub/sbteclipse">here</a>
+<code>Scala
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.1.0")
+</code>
+then run from root folder of the project
+<code>
+sbt/sbt eclipse
+</code>
+This command  creates a project compatible with Eclipse. Upon opening the eclipse IDE this project can now be imported and the executed with spark.</p>
+
+<p>You can find the sbt eclipse project from <a href="https://github.com/prabeesh/SparkTwitterAnalysis/tree/0.2.0">here</a></p>
+
+<p>To avoid generating eclipse source entries for the java directories and put all libs in the lib_managed directory, that way we can distribute eclipse project files, for this - add the contents to build.sbt
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='Scala'><span class='line'><span class="o">/&lt;</span><span class="n">em</span><span class="o">&gt;</span><span class="n">put</span> <span class="n">all</span> <span class="n">libs</span> <span class="n">in</span> <span class="n">the</span> <span class="n">lib_managed</span> <span class="n">directory</span><span class="o">,</span>
+</span><span class='line'><span class="n">that</span> <span class="n">way</span> <span class="n">we</span> <span class="n">can</span> <span class="n">distribute</span> <span class="n">eclipse</span> <span class="n">project</span> <span class="n">files</span>
+</span><span class='line'><span class="o">&lt;/</span><span class="n">em</span><span class="o">&gt;/&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="n">retrieveManaged</span> <span class="o">:=</span> <span class="kc">true</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;</span><span class="nc">EclipseKeys</span><span class="o">.</span><span class="n">relativizeLibs</span> <span class="o">:=</span> <span class="kc">true</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;//</span> <span class="nc">Avoid</span> <span class="n">generating</span> <span class="n">eclipse</span> <span class="n">source</span> <span class="n">entries</span> <span class="k">for</span> <span class="n">the</span> <span class="n">java</span> <span class="n">directories</span><span class="o">&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;(</span><span class="n">unmanagedSourceDirectories</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;&amp;</span><span class="n">lt</span><span class="o">;</span><span class="k">=</span> <span class="o">(</span><span class="n">scalaSource</span> <span class="n">in</span> <span class="nc">Compile</span><span class="o">)(</span><span class="nc">Seq</span><span class="o">(</span><span class="k">_</span><span class="o">))&lt;/</span><span class="n">p</span><span class="o">&gt;</span>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="n">p</span><span class="o">&gt;(</span><span class="n">unmanagedSourceDirectories</span> <span class="n">in</span> <span class="nc">Test</span><span class="o">)</span> <span class="o">&amp;</span><span class="n">lt</span><span class="o">;&amp;</span><span class="n">lt</span><span class="o">;</span><span class="k">=</span> <span class="o">(</span><span class="n">scalaSource</span> <span class="n">in</span> <span class="nc">Test</span><span class="o">)(</span><span class="nc">Seq</span><span class="o">(</span><span class="k">_</span><span class="o">))&lt;</span><span class="n">br</span><span class="o">/&gt;</span>
+</span></code></pre></td></tr></table></div></figure></p>
+]]></content>
+  </entry>
+  
+</feed>
