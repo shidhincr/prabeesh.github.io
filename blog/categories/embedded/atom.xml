@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Embedded | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/embedded/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-21T23:20:35+05:30</updated>
+  <updated>2015-03-22T00:10:38+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -211,6 +211,195 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
 <p><img class="center" src="/images/040720129881.jpg" width="600" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
 
 <p><img class="center" src="/images/04072012989.jpg" width="600" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[LCD Interfacing Using Msp430]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/"/>
+    <updated>2012-07-04T02:39:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430</id>
+    <content type="html"><![CDATA[<p>There is a pot connect to the ADC of msp430 Ao(pin p1.0). The values  of  ADC10MEM displayed using LCD.</p>
+
+<p>The Vcc for pot is taken from msp430 launchpad.so maximum voltage is 3.6v.</p>
+
+<p>The msp430 10 bit ADC operates in the range 0 to 3.6V. If the input voltage is 0V,</p>
+
+<p>the ADC generates a 10 bit value:</p>
+
+<p>0 0 0 0 0 0 0 0 0 0</p>
+
+<p>which is numerically equal to 0.</p>
+
+<p>When the input voltage is 3.6V, the ADC</p>
+
+<p>generates a 10 bit pattern:</p>
+
+<p>1 1 1 1 1 1 1 1 1 1</p>
+
+<p>which is numerically equal to 1023.</p>
+
+<p>This values are stored in ADC10MEM.</p>
+
+<p>The Vcc for LCD is given using another power supply of 5v.Because LCD display needed 5v for its functioning.</p>
+
+<pre><code class="c">#include &lt;msp430.h&gt;
+
+#define LCM_DIR P1DIR
+#define LCM_OUT P1OUT
+
+#define LCM_PIN_RS BIT2 // P1.2
+#define LCM_PIN_EN BIT1 // P1.1
+#define LCM_PIN_D7 BIT7 // P1.7
+#define LCM_PIN_D6 BIT6 // P1.6
+#define LCM_PIN_D5 BIT5 // P1.5
+#define LCM_PIN_D4 BIT4 // P1.4
+#define LCM_PIN_MASK ((LCM_PIN_RS | LCM_PIN_EN | LCM_PIN_D7 | LCM_PIN_D6 | LCM_PIN_D5 | LCM_PIN_D4))
+
+#define FALSE 0
+#define TRUE 1
+
+//msp430 adc
+
+void adc_init()
+
+{
+    ADC10CTL0 = ADC10ON | ADC10SHT_2 | SREF_0;
+    ADC10CTL1 = INCH_0 | SHS_0 | ADC10DIV_0 | ADC10SSEL_0 | CONSEQ_0 ;
+    ADC10AE0 = BIT0;
+    ADC10CTL0 |= ENC ;
+}
+
+void start_conversion()
+
+{
+    ADC10CTL0 |= ADC10SC;
+}
+
+unsigned int converting()
+{
+    return ADC10CTL1 &amp; ADC10BUSY;
+}
+
+// MSP430 LCD Code
+void PulseLcm()
+{   
+    // pull EN bit low  
+    LCM_OUT &amp;= ~LCM_PIN_EN;
+    __delay_cycles(200);
+    // pull EN bit high 
+    LCM_OUT |= LCM_PIN_EN;
+    __delay_cycles(200);
+    // pull EN bit low again    
+    LCM_OUT &amp;= (~LCM_PIN_EN);
+    __delay_cycles(200);
+}
+
+void SendByte(char ByteToSend, int IsData)
+{
+    // clear out all pins   
+    LCM_OUT &amp;= (~LCM_PIN_MASK); 
+    LCM_OUT |= (ByteToSend &amp; 0xF0); 
+
+    if (IsData == TRUE)
+    {
+        LCM_OUT |= LCM_PIN_RS;
+    }
+    else
+    {
+        LCM_OUT &amp;= ~LCM_PIN_RS;
+    }
+
+    PulseLcm();
+    LCM_OUT &amp;= (~LCM_PIN_MASK);
+    LCM_OUT |= ((ByteToSend &amp; 0x0F) &lt;&lt; 4);  
+
+    if (IsData == TRUE)
+    {
+        LCM_OUT |= LCM_PIN_RS;
+    }
+    else
+    {
+        LCM_OUT &amp;= ~LCM_PIN_RS;
+    }   
+
+    PulseLcm();
+}
+
+void LcmSetCursorPosition(char Row, char Col)
+{
+    char address;
+    // construct address from (Row, Col) pair   
+
+    if (Row == 0)
+    {
+        address = 0;
+    }
+    else
+    {
+        address = 0x40;
+    }
+
+    address |= Col;
+    SendByte(0x80 | address, FALSE);
+}
+
+void ClearLcmScreen()
+{
+    // Clear display, return home
+    SendByte(0x01, FALSE);
+    SendByte(0x02, FALSE);
+}
+
+void InitializeLcm(void)
+{
+    LCM_DIR |= LCM_PIN_MASK;
+    LCM_OUT &amp;= ~(LCM_PIN_MASK); 
+    __delay_cycles(100000); 
+    LCM_OUT &amp;= ~LCM_PIN_RS;
+    LCM_OUT &amp;= ~LCM_PIN_EN; 
+    LCM_OUT = 0x20;
+    PulseLcm(); 
+    SendByte(0x28, FALSE);  
+    SendByte(0x0E, FALSE);  
+    SendByte(0x06, FALSE);
+}
+
+void PrintStr(char *Text)
+{
+    char *c;
+    c = Text;
+
+    while ((c != 0) &amp;&amp; (*c != 0))
+    {
+        SendByte(*c, TRUE);
+        c++;
+    }
+}
+
+void main(void)
+{
+    adc_init(); 
+    int i,a;    
+    char b[5];  
+    WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer    
+    InitializeLcm();    
+
+    while(1)
+    {   
+
+        start_conversion(); 
+        while(converting());    
+        a = ADC10MEM;   
+        itoa(a,b,10);//integer to ASCII 
+        ClearLcmScreen();   
+        PrintStr(b);    
+        for(i=0;i&lt;5000;i++);
+    } 
+}
+</code></pre>
+
+<p><div class="embed-video-container"><iframe src="//www.youtube.com/embed/hsM_o5hNUmg" allowfullscreen></iframe></div></p>
 ]]></content>
   </entry>
   

@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>This is One of the Solutions</title>
+  <title>LCD Interfacing Using Msp430 - This is One of the Solutions</title>
   <meta name="author" content="Prabeesh K">
 
   
-  <meta name="description" content="An Arduino board consists of an 8-bit Atmel AVR microcontroller with complementary components to facilitate programming and incorporation into other &hellip;">
-  
+  <meta name="description" content="LCD interface using msp430 microcontroller">
+  <meta name="keywords" content="LCD interface using msp430, msp430 LCD interface, MSP LCD, LCD interface using micro controllers, msp430  LCD interface examples">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +19,7 @@
   <meta name="msvalidate.01" content="E9C54D49527AFA588120A46982BDE002" />
 
   
-  <link rel="canonical" href="http://blog.prabeeshk.com/posts/2">
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
@@ -74,119 +74,22 @@
 </nav>
   <div id="main">
     <div id="content">
-      <div class="blog-index">
+      <div>
+  <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!-- blog-top -->
+  <ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-1368619820510426"
+     data-ad-slot="5110289998"
+     data-ad-format="auto"></ins>
+  <script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+  </script>
+  <article class="hentry" role="article">
   
-  
-  
-    <article>
-      
   <header>
     
-      <h1 class="entry-title"><a href="/blog/2012/07/14/running-arduino-codes-in-stand-alone/">Running Arduino Codes in Stand Alone Atmega8</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-07-14T02:23:00+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>14</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:23 am</span></time>
-        
-           | <a href="/blog/2012/07/14/running-arduino-codes-in-stand-alone/#disqus_thread"
-             data-disqus-identifier="http://blog.prabeeshk.com/blog/2012/07/14/running-arduino-codes-in-stand-alone/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>An Arduino board consists of an 8-bit Atmel AVR microcontroller with complementary components to facilitate programming and incorporation into other circuits.
-If you wish to study the arduino codes ,then one of the major problems is the availability and cost of the Arduino board. If you have an atmega8 microcontroller  then you have to study the Arduino codes by simply changing some options in Arduino IDE.</p>
-
-<p>First download the arduino IDE(I am using Arduino 1.0). Next you have to an avr  programmer(I am using usbasp and usbtiny).
-Launch the arduino IDE as root.Then select your programmer from tools and also select your board  in this case select ATmega8.
-Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enable internal 8MHz clock by</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">-</span><span class="n">U</span> <span class="nl">lfuse</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="mh">0xa4</span><span class="o">:</span><span class="n">m</span> <span class="o">-</span><span class="n">U</span> <span class="nl">hfuse</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="mh">0xcc</span><span class="o">:</span><span class="n">m</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Or you can enable the external crystal by setting the fuse byte as</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="o">-</span><span class="n">U</span> <span class="nl">lfuse</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="mh">0xef</span><span class="o">:</span><span class="n">m</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>and put a  8MHz crystal.</p>
-
-<p>You can find mapping between atmega8 and arduino here</p>
-
-<p><img class="center" src="/images/arduino.png" width="600" height="350" title="image" alt="images"></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/04/simplest-and-low-cost-usb-avr/">Simplest and Low Cost USB AVR Programmer USBtinyISP</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-<time class='entry-date' datetime='2012-07-04T19:39:00+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>7:39 pm</span></time>
-        
-           | <a href="/blog/2012/07/04/simplest-and-low-cost-usb-avr/#disqus_thread"
-             data-disqus-identifier="http://blog.prabeeshk.com/blog/2012/07/04/simplest-and-low-cost-usb-avr/">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p>This is the low cost AVR programmer using attiny2313. The schematic diagram is given below.</p>
-
-<p><img class="center" src="/images/usbtiny_circuit.png" width="600" height="350" title="image" alt="images"></p>
-
-<p>First setup the circuit as shown. Refer <a href="https://learn.adafruit.com/usbtinyisp">this site</a> for to burn program to this attiny 2313.</p>
-
-<p>One important care taken to make fuse bit</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">avrdude</span> <span class="o">-</span><span class="n">c</span> <span class="n">usbasp</span> <span class="o">-</span><span class="n">p</span> <span class="n">t2313</span> <span class="o">-</span><span class="n">U</span> <span class="nl">hfuse</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="mh">0xdf</span><span class="o">:</span><span class="n">m</span> <span class="o">-</span><span class="n">U</span> <span class="nl">lfuse</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="mh">0xef</span><span class="o">:</span><span class="n">m</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>If you use serial port to write the program , use stk200 command instead of usbasp.</p>
-
-<p><img class="center" src="/images/040720129881.jpg" width="600" height="350" title="image" alt="images"></p>
-
-<p><img class="center" src="/images/04072012989.jpg" width="600" height="350" title="image" alt="images"></p>
-</div>
-  
-  
-
-
-    </article>
-  
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/blog/2012/07/04/lcd-interfacing-using-msp430/">LCD Interfacing Using Msp430</a></h1>
+      <h1 class="entry-title">LCD Interfacing Using Msp430</h1>
     
     
       <p class="meta">
@@ -197,15 +100,15 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
 
 <time class='entry-date' datetime='2012-07-04T02:39:00+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:39 am</span></time>
         
-           | <a href="/blog/2012/07/04/lcd-interfacing-using-msp430/#disqus_thread"
-             data-disqus-identifier="http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/">Comments</a>
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
         
       </p>
     
   </header>
 
 
-  <div class="entry-content"><p>There is a pot connect to the ADC of msp430 Ao(pin p1.0). The values  of  ADC10MEM displayed using LCD.</p>
+<div class="entry-content"><p>There is a pot connect to the ADC of msp430 Ao(pin p1.0). The values  of  ADC10MEM displayed using LCD.</p>
 
 <p>The Vcc for pot is taken from msp430 launchpad.so maximum voltage is 3.6v.</p>
 
@@ -543,32 +446,72 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
 <div class="embed-video-container"><iframe src="//www.youtube.com/embed/hsM_o5hNUmg" allowfullscreen></iframe></div>
 
 </div>
-  
-  
 
 
-    </article>
+  <footer>
+    <p class="meta">
+      
   
-  <div class="pagination">
+
+<span class="byline author vcard">Posted by <span class="fn">Prabeesh K</span></span>
+
+      
+
+
+
+
+<time class='entry-date' datetime='2012-07-04T02:39:00+05:30'><span class='date'><span class='date-month'>Jul</span> <span class='date-day'>4</span><span class='date-suffix'>th</span>, <span class='date-year'>2012</span></span> <span class='time'>2:39 am</span></time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/avr/'>avr</a>, <a class='category' href='/blog/categories/embedded/'>embedded</a>
+  
+</span>
+
+
+    </p>
     
-    <a href="/blog/archives">Blog Archives</a>
-    
-    <a class="next" href="/index.html">Newer &rarr;</a>
-    
-  </div>
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/" >Tweet</a>
+  
+  
+  
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="false"></div>
+  
 </div>
+
+    
+    <p class="meta">
+      
+      
+        <a class="basic-alignment right" href="/blog/2012/07/04/simplest-and-low-cost-usb-avr/" title="Next Post: Simplest and Low cost USB AVR Programmer USBtinyISP">Simplest and Low cost USB AVR Programmer USBtinyISP &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <div align="center">
+      <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+      <!-- blog-bottom-1 -->
+      <ins class="adsbygoogle"
+        style="display:inline-block;width:336px;height:280px"
+        data-ad-client="ca-pub-1368619820510426"
+        data-ad-slot="4546933191"></ins>
+      <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div> 
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
 <aside class="sidebar">
-  <div align="center">
-    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    <!-- index-top -->
-    <ins class="adsbygoogle"
-      style="display:inline-block;width:250px;height:250px"
-      data-ad-client="ca-pub-1368619820510426"
-      data-ad-slot="1578290392"></ins>
-    <script>
-    (adsbygoogle = window.adsbygoogle || []).push({});
-    </script>
-  </div>
   
     <section>
   <h1>Recent Posts</h1>
@@ -641,16 +584,17 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
 
   
   <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-  <!-- index-side -->
+  <!-- blog-side -->
   <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-1368619820510426"
-     data-ad-slot="7904025599"
+     data-ad-slot="2778298790"
      data-ad-format="auto"></ins>
   <script>
   (adsbygoogle = window.adsbygoogle || []).push({});
-  </script>
-</aside>
+  </script> 
+  </aside>
+
 
     </div>
   </div>
@@ -666,7 +610,10 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
       var disqus_shortname = 'prabeeshk';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2012/07/04/lcd-interfacing-using-msp430/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
