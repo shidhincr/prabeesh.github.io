@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Embedded | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/embedded/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-21T22:41:49+05:30</updated>
+  <updated>2015-03-21T23:20:35+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -12,6 +12,155 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Finding RC Constant Using ATmega8]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2012/07/14/finding-rc-constant-using-atmega8/"/>
+    <updated>2012-07-14T23:39:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2012/07/14/finding-rc-constant-using-atmega8</id>
+    <content type="html"><![CDATA[<p>The time constant(sec) of a RC circuit is equal to the product of the resistance and the capacitance of the circuit.</p>
+
+<p>It is the time required to charge the capacitor through the resistor to 63. 2% of full charge,or to discharge it to 36.8% of its initial voltage.</p>
+
+<p>The voltage of the RC circuit is measured using adc of the ATmega8, input voltage for RC circuit is given from PB0. The timer is start  at the time of the PB0 making 1 .</p>
+
+<p>The adc of ATmega8(ADCH) is 8 bit long so corresponding to 5V get 255 in ADCH. The TCNT1 value is taken to a variable when the output voltage of the RC circuit become 63.2% of input voltage.That is  3.16 v corresponding to these voltage ADCH show 161(appr).</p>
+
+<p>Using a LCD can show the TCNT1 value. TCNT1 is 16 bit long.Here ATmega8 running in 8MHz clock,timer prescaled by 1024.</p>
+
+<p>So if you get the real time multiply the TCNT1 value to (1024/8000000).</p>
+
+<p>Some test examples:
+<code>
+     R=1kΩ  C=100µF  the calculated RC constant is 0.1S.
+</code>
+The value of  TCNT1 is 846.Which is equal to 0.108288s.
+<code>
+     R=2kΩ  C=100µF  the calculated RC constant is 0.2S.
+</code>
+The value of  TCNT1 is 1864.Which is equal to 0.238592s.</p>
+
+<pre><code class="c">
+#include&lt;avr/io.h&gt;
+#define F_CPU 8000000UL
+#include &lt;util/delay.h&gt;
+
+#define RS 6 //PD6
+#define EN 7 //PD7
+#define databits PORTC //PC0 to PC3
+#define row1 cmd(0x80)
+#define row2 cmd(0xc0)
+
+void adc_init()
+{
+   //select AVCC reference voltage , left alignment of data and ADC4
+   ADMUX=((1&lt;&lt;REFS0)|(1&lt;&lt;ADLAR)|(1&lt;&lt;MUX2));
+
+   //enable ADC, set prescaler to divide the clock by 64 and auto triggering mode
+   ADCSRA=((1&lt;&lt;ADEN)|(1&lt;&lt;ADFR)|(1&lt;&lt;ADPS2)|(1&lt;&lt;ADPS1)|(1&lt;&lt;ADPS0));
+
+}
+
+void conversion()
+{
+   //start conversion
+   ADCSRA|=(1&lt;&lt;ADSC);
+}
+
+void port_init()
+{
+   DDRC = 0xcf;
+   DDRD = (1 &lt;&lt; RS)|(1 &lt;&lt; EN);
+}
+
+void LCD_STROBE(void)
+{
+   PORTD |= (1 &lt;&lt; EN);
+   _delay_us(1);
+   PORTD &amp;= ~(1 &lt;&lt; EN);
+}
+
+void data(unsigned char c)
+{
+   PORTD |= (1 &lt;&lt; RS);
+   _delay_us(50);
+   databits = (c &gt;&gt; 4);
+   LCD_STROBE();
+   databits = (c);
+   LCD_STROBE();
+}
+
+void cmd(unsigned char c)
+{
+   PORTD &amp;= ~(1 &lt;&lt; RS);
+   _delay_us(50);
+   databits = (c &gt;&gt; 4);
+   LCD_STROBE();
+   databits = (c);
+   LCD_STROBE();
+}
+
+void clear(void)
+{
+   cmd(0x01);
+   _delay_ms(5);
+}
+
+void lcd_init()
+{
+   _delay_ms(15);
+   cmd(0x30);
+   _delay_ms(1);
+   cmd(0x30);
+   _delay_us(100);
+   cmd(0x30);
+   cmd(0x28); // Function set (4-bit interface, 2 lines, 5*7Pixels)
+   cmd(0x28); // Function set (4-bit interface, 2 lines, 5*7Pixels)
+   cmd(0x0c); // Make cursorinvisible
+   clear(); // Clear screen
+   cmd(0x6); // Set entry Mode(auto increment of cursor)
+}
+
+void print(char *p)
+{
+   while(*p) data(*p++);
+}
+
+void main()
+{
+   char a[5],b[5];
+   int c,d; 
+   DDRB=0x01;
+   _delay_ms(50);
+   TCCR1B|=(1&lt;&lt;CS10)|(1&lt;&lt;CS12);//prescale 1024
+   port_init();
+   adc_init();
+   lcd_init();
+   PORTB=0x01;//applying vcc to RC circuit
+   TCNT1=0x00;//start the timer
+
+   while(1)
+   { 
+      conversion();
+
+      while(!( ADIF));
+
+      if(ADCH==161)//63% of the input voltage
+      { 
+         c=TCNT1; 
+         d=ADCH;
+         itoa(c,a,10);//integer to ASCII
+         itoa(d,b,10);//integer to ASCII
+         row1; 
+         print(a);//showing timer value
+         row2;
+         print(b);//showing adc value
+      }
+   } 
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Running Arduino Codes in Stand Alone Atmega8]]></title>
