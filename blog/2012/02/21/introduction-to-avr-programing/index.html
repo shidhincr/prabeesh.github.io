@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>AM Generation Using Matplotlib Python - This is One of the Solutions</title>
+  <title>Introduction to AVR Programing - This is One of the Solutions</title>
   <meta name="author" content="Prabeesh K">
 
   
-  <meta name="description" content="AM generation uisng matplotlib Python library in linux, matlab quivalent in linux">
-  <meta name="keywords" content="matlab in linux, matplotlib examples, AM genaration matplot lib, how to matplot lib AM generataion, AM matplot lib examples, matlab linux AM generation, matlab equivalent in linux, Amplitude modulation in linux">
+  <meta name="description" content="Beginer level AVR programming introduction">
+  <meta name="keywords" content="beginers guide AVR programming, AVR programming basic examples, intro to AVR programming, avr introduction, begginer avr examples, how to avr programs, avr examples, basic avr code">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +19,7 @@
   <meta name="msvalidate.01" content="E9C54D49527AFA588120A46982BDE002" />
 
   
-  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib">
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2012/02/21/introduction-to-avr-programing">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
@@ -89,7 +89,7 @@
   
   <header>
     
-      <h1 class="entry-title">AM Generation Using Matplotlib Python</h1>
+      <h1 class="entry-title">Introduction to AVR Programing</h1>
     
     
       <p class="meta">
@@ -98,7 +98,7 @@
 
 
 
-<time class='entry-date' datetime='2011-09-25T01:39:00+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>1:39 am</span></time>
+<time class='entry-date' datetime='2012-02-21T02:39:00+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>2:39 am</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
@@ -108,9 +108,17 @@
   </header>
 
 
-<div class="entry-content"><p>we can plot AM waves using matplotlib</p>
+<div class="entry-content"><p>Atmel AVR 8-bit and 32-bit microcontrollers deliver a unique combination of performance, power efficiency, and design flexibility. Optimized to speed time to market, they are based on the industry’s most code-efficient architecture for C and assembly programming. No other microcontrollers deliver more computing performance with better power efficiency. Industry-leading development tools and design support let you get to market faster. Once there, the large AVR family lets you reuse your knowledge when improving your products and expanding to new markets—easily and cost-effectively.</p>
 
-<p>It is the one of the most strongest tool in linux to plot the waves</p>
+<p>package required in linux</p>
+
+<p>binutils: Programs to manipulate binary and object files that may have been created for Atmel’s AVR architecture. This package is primarily for AVR developers and cross-compilers.</p>
+
+<p>gcc-avr: The GNU C compiler, a fairly portable optimising compiler that supports multiple languages. This package includes C language support.</p>
+
+<p>avr-libc: Standard library used for developing C programs for Atmel AVR microcontrollers. This package contains static libraries, as well as needed header files.</p>
+
+<p>sample programe to blink  a LED</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -122,22 +130,55 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="kn">as</span> <span class="nn">plt</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">num</span>
-</span><span class='line'><span class="n">fc</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span>
-</span><span class='line'><span class="n">fm</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span>
-</span><span class='line'><span class="n">t</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.001</span><span class="p">);</span>
-</span><span class='line'><span class="n">c</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fc</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
-</span><span class='line'><span class="n">m</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fm</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
-</span><span class='line'><span class="n">am</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="n">m</span><span class="p">);</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">am</span><span class="p">,</span><span class="err">’</span><span class="n">r</span><span class="err">’</span><span class="p">)</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="cp">#include&lt;avr/io.h&gt;</span>
+</span><span class='line'><span class="cp">#include&lt;util/delay.h&gt;</span>
+</span><span class='line'><span class="n">main</span><span class="p">()</span>
+</span><span class='line'><span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>        <span class="n">DDRC</span> <span class="o">|=</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">PC2</span><span class="p">;</span>  <span class="cm">/* PC2 will now be the output pin */</span>
+</span><span class='line'>        <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span class='line'>        <span class="p">{</span>
+</span><span class='line'>                <span class="n">PORTC</span> <span class="o">&amp;=</span> <span class="o">~</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">PC2</span><span class="p">);</span><span class="cm">/* PC2 LOW */</span>
+</span><span class='line'>               <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'>                <span class="n">PORTC</span> <span class="o">|=</span><span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="n">PC2</span><span class="p">);</span> <span class="cm">/* PC2 HIGH */</span>
+</span><span class='line'>               <span class="n">_delay_ms</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'>        <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-<p><img class="center" src="/images/am.png" width="600" height="350" title="image" alt="images"></p>
+<p>save th above program to a file led.c</p>
 
-<p>For more details about matplotlib <a href="http://matplotlib.sourceforge.net/users/artists.html">refer</a></p>
+<p>Then compile the program using avr-gcc and convert the c-code into object code as follows</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">avr</span><span class="o">-</span><span class="n">gcc</span> <span class="o">-</span><span class="n">mmcu</span><span class="o">=</span><span class="n">atmega8</span>  <span class="n">led</span><span class="p">.</span><span class="n">c</span> <span class="o">-</span><span class="n">o</span> <span class="n">led</span><span class="p">.</span><span class="n">o</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>in next step convert the led.o object code to hex-code</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">avr</span><span class="o">-</span><span class="n">objcopy</span> <span class="o">-</span><span class="n">j</span> <span class="p">.</span><span class="n">text</span> <span class="o">-</span><span class="n">j</span> <span class="p">.</span><span class="n">data</span> <span class="o">-</span><span class="n">O</span>  <span class="n">ihex</span>  <span class="n">led</span><span class="p">.</span><span class="n">o</span>  <span class="n">led</span><span class="p">.</span><span class="n">hex</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>in final step using USBASP we can write program  to avr</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='c'><span class='line'><span class="n">avrdude</span> <span class="o">-</span><span class="n">c</span> <span class="n">usbasp</span> <span class="o">-</span><span class="n">p</span> <span class="n">m8</span> <span class="o">-</span><span class="n">U</span> <span class="nl">flash</span><span class="p">:</span><span class="nl">w</span><span class="p">:</span><span class="n">led</span><span class="p">.</span><span class="nl">hex</span><span class="p">:</span><span class="n">a</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>for more details about USBASP <a href="http://achuwilson.wordpress.com/2011/12/15/usbasp-a-usb-programmer-for-avr-microcontrollers/">visit</a></p>
+
+<h4>Code Explanation</h4>
+
+<p>The GNU C compiler for the Atmel family identifies all functional units within the microcontroller with meaningful names. Thus, writing `PORTC=0xff’ will result in the compiler generating machine code that writes 0xff to I/O port C, which will set all port C pins to logic high. Because ports are bidirectional, we must decide whether each pin should act as input or output. If the i’th bit of a register called DDRC (data direction register C) is 1, then the i’th pin of PORTC’s i’th pin will be an output. Otherwise, it will act as an input pin. (Note that pin and bit numbers start at zero.) To make an LED blink, you have to make a pin high, then low. (Here, we use PORTC’s 2nd port. That is, PC2 will be the 25th pin.) There should be a delay between the two. This is what the rest of the code does.</p>
 </div>
 
 
@@ -153,12 +194,12 @@
 
 
 
-<time class='entry-date' datetime='2011-09-25T01:39:00+05:30'><span class='date'><span class='date-month'>Sep</span> <span class='date-day'>25</span><span class='date-suffix'>th</span>, <span class='date-year'>2011</span></span> <span class='time'>1:39 am</span></time>
+<time class='entry-date' datetime='2012-02-21T02:39:00+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>21</span><span class='date-suffix'>st</span>, <span class='date-year'>2012</span></span> <span class='time'>2:39 am</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/matplotlib/'>matplotlib</a>, <a class='category' href='/blog/categories/python/'>python</a>
+    <a class='category' href='/blog/categories/avr/'>avr</a>, <a class='category' href='/blog/categories/embedded/'>embedded</a>
   
 </span>
 
@@ -167,7 +208,7 @@
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2012/02/21/introduction-to-avr-programing/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2012/02/21/introduction-to-avr-programing/" >Tweet</a>
   
   
   
@@ -178,8 +219,10 @@
     
     <p class="meta">
       
+        <a class="basic-alignment left" href="/blog/2011/09/25/am-plot-matplotlib/" title="Previous Post: AM Generation using Matplotlib Python">&laquo; AM Generation using Matplotlib Python</a>
       
-        <a class="basic-alignment right" href="/blog/2012/02/21/introduction-to-avr-programing/" title="Next Post: Introduction to AVR programing">Introduction to AVR programing &raquo;</a>
+      
+        <a class="basic-alignment right" href="/blog/2012/07/04/lcd-interfacing-using-msp430/" title="Next Post: LCD Interfacing using msp430">LCD Interfacing using msp430 &raquo;</a>
       
     </p>
   </footer>
@@ -304,8 +347,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/';
-        var disqus_url = 'http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/';
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2012/02/21/introduction-to-avr-programing/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2012/02/21/introduction-to-avr-programing/';
         var disqus_script = 'embed.js';
       
     (function () {
