@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Python | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/python/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-22T00:10:38+05:30</updated>
+  <updated>2015-03-22T23:32:00+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -55,6 +55,33 @@
 <p>Source code: <a href="https://github.com/prabeesh/Paintapp-Javascript-Canvas-GAE">App with GAE</a> and <a href="https://github.com/prabeesh/Paintapp-Javascript-Canvas-Flask">App with Flask</a></p>
 
 <p>The app is deployed in appspot.com, You can find the application <a href="http://prabs-paint.appspot.com/">here</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AM Generation Using Matplotlib Python]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/"/>
+    <updated>2011-09-25T01:39:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib</id>
+    <content type="html"><![CDATA[<p>we can plot AM waves using matplotlib</p>
+
+<p>It is the one of the most strongest tool in linux to plot the waves</p>
+
+<pre><code class="python">import matplotlib.pylab as plt
+import numpy as num
+fc=50;
+fm=5;
+t=num.arange(0,1,0.001);
+c=num.sin(2*num.pi*fc*t);
+m=num.sin(2*num.pi*fm*t);     
+am=c*(2+m);
+plt.plot(am,’r’)
+plt.show()
+</code></pre>
+
+<p><img class="center" src="/images/am.png" width="600" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
+
+<p>For more details about matplotlib <a href="http://matplotlib.sourceforge.net/users/artists.html">refer</a></p>
 ]]></content>
   </entry>
   

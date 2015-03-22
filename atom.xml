@@ -4,7 +4,7 @@
   <title><![CDATA[This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-22T00:10:38+05:30</updated>
+  <updated>2015-03-22T23:32:00+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -1452,6 +1452,44 @@ Take care in fuse bytes because arduino codes are running in 8MHz.Y ou can enabl
 
 <div class="embed-video-container"><iframe src="//www.youtube.com/embed/hsM_o5hNUmg" allowfullscreen></iframe></div>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AM Generation Using Matplotlib Python]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/"/>
+    <updated>2011-09-25T01:39:00+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib</id>
+    <content type="html"><![CDATA[<p>we can plot AM waves using matplotlib</p>
+
+<p>It is the one of the most strongest tool in linux to plot the waves</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pylab</span> <span class="kn">as</span> <span class="nn">plt</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">num</span>
+</span><span class='line'><span class="n">fc</span><span class="o">=</span><span class="mi">50</span><span class="p">;</span>
+</span><span class='line'><span class="n">fm</span><span class="o">=</span><span class="mi">5</span><span class="p">;</span>
+</span><span class='line'><span class="n">t</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.001</span><span class="p">);</span>
+</span><span class='line'><span class="n">c</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fc</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
+</span><span class='line'><span class="n">m</span><span class="o">=</span><span class="n">num</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">num</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">fm</span><span class="o">*</span><span class="n">t</span><span class="p">);</span>
+</span><span class='line'><span class="n">am</span><span class="o">=</span><span class="n">c</span><span class="o">*</span><span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="n">m</span><span class="p">);</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">am</span><span class="p">,</span><span class="err">’</span><span class="n">r</span><span class="err">’</span><span class="p">)</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><img class="center" src="http://blog.prabeeshk.com/images/am.png" width="600" height="350" title="image" alt="images"></p>
+
+<p>For more details about matplotlib <a href="http://matplotlib.sourceforge.net/users/artists.html">refer</a></p>
 ]]></content>
   </entry>
   
