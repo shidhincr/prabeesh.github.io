@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: No Sql | This is One of the Solutions]]></title>
-  <link href="http://blog.prabeeshk.com/blog/categories/no-sql/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Python Flask | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/python-flask/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-24T23:56:45+05:30</updated>
+  <updated>2015-03-25T00:31:31+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
