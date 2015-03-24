@@ -4,7 +4,7 @@ title: "Finding RC constant using ATmega8"
 date: 2012-07-14T23:39:00+05:30
 comments: true
 categories: [AVR, Embedded]
-keywords: timeconstant using AVR, atmega8 examples, timeconstant using embedded systems, find RC constant, find RC constant using microcontroller, AVR find RC constant,   
+keywords: [timeconstant using AVR, atmega8 examples, timeconstant using embedded systems, find RC constant, find RC constant using microcontroller, AVR find RC constant, AVR find RC]
 description: Finding RC constants using atmega8  
 ---
 

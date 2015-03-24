@@ -4,7 +4,7 @@ title: "LCD Interfacing using msp430"
 date: 2012-07-04T2:39:00+05:30
 comments: true
 categories: [AVR, Embedded]
-keywords: LCD interface using msp430, msp430 LCD interface, MSP LCD, LCD interface using micro controllers, msp430  LCD interface examples 
+keywords: [LCD interface using msp430, msp430 LCD interface, MSP LCD, LCD interface using micro controllers, msp430  LCD interface examples]
 description: LCD interface using msp430 microcontroller
 ---
 There is a pot connect to the ADC of msp430 Ao(pin p1.0). The values  of  ADC10MEM displayed using LCD.

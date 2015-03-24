@@ -4,7 +4,7 @@ title: "AM Generation using Matplotlib Python"
 date: 2011-09-25T1:39:00+05:30
 comments: true
 categories: [Python, Matplotlib]
-keywords: matlab in linux, matplotlib examples, AM genaration matplot lib, how to matplot lib AM generataion, AM matplot lib examples, matlab linux AM generation, matlab equivalent in linux, Amplitude modulation in linux 
+keywords: [matlab in linux, matplotlib examples, AM genaration matplot lib, how to matplot lib AM generataion, AM matplot lib examples, matlab linux AM generation, matlab equivalent in linux, Amplitude modulation in linux]
 description: AM generation uisng matplotlib Python library in linux, matlab quivalent in linux
 ---
 we can plot AM waves using matplotlib

@@ -4,7 +4,7 @@ title: "Introduction to AVR programing"
 date: 2012-02-21T2:39:00+05:30
 comments: true
 categories: [AVR, Embedded]
-keywords: beginers guide AVR programming, AVR programming basic examples, intro to AVR programming, avr introduction, begginer avr examples, how to avr programs, avr examples, basic avr code
+keywords: [beginers guide AVR programming, AVR programming basic examples, intro to AVR programming, avr introduction, begginer avr examples, how to avr programs, avr examples, basic avr code]
 description: Beginer level AVR programming introduction 
 ---
 

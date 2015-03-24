@@ -4,7 +4,7 @@ title: "Running Mesos-0.13.0  on Ubuntu-12.04"
 date: 2013-10-07T10:53:00+05:30
 comments: true
 categories: [BigData, Apache Mesos]
-keywords: mesos, apache spark mesos
+keywords: [mesos, apache spark mesos, spark mesos cluster setup, spark deplot installation, mesos installation, set up mesos on ubuntu, ubuntu mesos apt get, ubuntu spark with mesos, mesos cluster configuration]
 description: Installing Mesos for Apache Spark, Set up Cluster for Spark
 ---
 You will need the following packages to run Mesos.

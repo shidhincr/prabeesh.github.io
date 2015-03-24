@@ -4,7 +4,7 @@ title: "Simplest and Low cost USB AVR Programmer USBtinyISP"
 date: 2012-07-04T19:39:00+05:30
 comments: true
 categories: [AVR, Embedded]
-keywords: simplest and low cost usb avr, next.gr usb avr, lowcost avr programmer, AVR programmer using USBtiny ISP, AVR programmer low cost, AVR attiny programmer, attiny2313 programmer, atmega8 programmeri, usbtinyisp
+keywords: [simplest and low cost usb avr, next.gr usb avr, lowcost avr programmer, AVR programmer using USBtiny ISP, AVR programmer low cost, AVR attiny programmer, attiny2313 programmer, atmega8 programmeri, usbtinyisp]
 description: Simplest and low cost AVR programmer using attiny2313 for burn attiny, atmega8, AVR family etc 
 ---
 

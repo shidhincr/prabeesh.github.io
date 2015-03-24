@@ -2,6 +2,7 @@
 layout: post
 title: Simple CUDA program
 date: 2013-03-07T11:00:00+05:30
+keywords: [simple CUDA program, CUDA basic example, introduction to CUDA programming, CUDA for beginners, CUDA examples]
 comments: true
 ---
 Let's consider a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.

@@ -4,7 +4,7 @@ title: "Install Apache Spark on Ubuntu-14.04"
 date: 2014-10-31 13:58:31 +0530
 comments: true
 categories: [Apache Spark, BigData]
-keywords: [install spark on ubuntu, spark installation on ubunt, installing spark on ubuntu, apache spark installation guide, installing apache spark, spark on ubuntu, apache spark installation, install spark in ubunt, how to install spark on ubuntu, apache spark cluster]
+keywords: [install spark on ubuntu, spark installation on ubuntu 14.04, installing spark on ubuntu, apache spark installation guide, installing apache spark, spark on ubuntu, apache spark installation, install spark in ubunt, how to install spark on ubuntu, apache spark cluster, install spark ubuntu 14.04, spark on ubuntu server, install Spark on Ubuntu server, Spark ubuntu LTS install]
 description: set up Spark on Ubuntu, Install Spark on Ubuntu, Apache Spark set up in Ubuntu
 ---
 On of the [previous post](/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/) mentioning about install Spark-0.8.0 in Ubuntu-12.04. In this post  explain about detailed steps to set up Spark-1.1.0 in  Ubuntu machine. For running Spark in Ubuntu machine should install Java.  Using following commands  easily install Java in Ubuntu machine.

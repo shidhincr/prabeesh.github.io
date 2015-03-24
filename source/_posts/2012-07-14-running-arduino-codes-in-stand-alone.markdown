@@ -4,7 +4,7 @@ title: "Running Arduino codes in stand alone atmega8"
 date: 2012-07-14T02:23:00+05:30
 comments: true
 categories: [Arduino, Embedded]
-keywords: arduino alernatives, simple arduino, arduino examples in atmega8, arduino codes in atmega8, arduino run in atmega8, runnig adruino code in atmega 
+keywords: [arduino alernatives, simple arduino, arduino examples in atmega8, arduino codes in atmega8, arduino run in atmega8, runnig adruino code in atmega] 
 description: run arduino codes in atmega8, atmega8 arduino board
 ---
 An Arduino board consists of an 8-bit Atmel AVR microcontroller with complementary components to facilitate programming and incorporation into other circuits.

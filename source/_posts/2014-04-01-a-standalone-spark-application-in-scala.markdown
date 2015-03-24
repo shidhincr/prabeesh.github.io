@@ -4,7 +4,7 @@ title: "A Standalone Spark Application in Scala"
 date: 2014-04-01T22:56:00+05:30
 comments: true
 categories: [Apache Spark, SBT, Scala, BigData]
-keywords: [spark streaming twitter example, spark eclipse plugin, apache spark tutorial, spark twitter streaming, scala spark, spark eclipse, apache spark example, apache spark scala, apache spark eclipse, spark stream]
+keywords: [spark streaming twitter example, spark eclipse plugin, apache spark tutorial, spark twitter streaming, scala spark, spark eclipse, apache spark example, apache spark scala, apache spark eclipse, spark stream, how to stand alone application in spark, spark sbt stand alone examples, spark stand alone exmaples, application in spark]
 description: Spark Application in Scala, Building Spark Applications, Developing Spark Applications
 ---
 

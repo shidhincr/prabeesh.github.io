@@ -4,7 +4,7 @@ title: "Creating assembled JAR for Standalone Spark Application"
 date: 2014-04-08T09:47:00+05:30
 comments: true
 categories: [Apache Spark, SBT, Scala, BigData]
-keywords: [spark single jar, spark sbt assembledjar, spark sbt assembly jar, sbt-assembly, sbt spark fat jar, sbt assembly spark jar,spark sbt assembly tutorial, sbt spark uberjar, sbt-assembly tutorial, sbt spark, single jar spark application]
+keywords: [spark single jar, spark sbt assembledjar, spark sbt assembly jar, sbt-assembly, sbt spark fat jar, sbt assembly spark jar,spark sbt assembly tutorial, sbt spark uberjar, sbt-assembly tutorial, sbt spark, single jar spark application, introduction to Spark jar creation, spark jar creation, jar spark app]
 description: creating single jar for spark project, creating fat jar for spark application, creating spark single jar using sbt-assemby, spark using sbt-assembly
 ---
 In the [previous post](/blog/2014/04/01/a-standalone-spark-application-in-scala/) shared how to use sbt in Spark-streaming project. This post is about how to create a fat jar for spark streaming project using sbt plugin. sbt-assembly is a sbt plugin to create a fat JAR of sbt project with all of its dependencies.
