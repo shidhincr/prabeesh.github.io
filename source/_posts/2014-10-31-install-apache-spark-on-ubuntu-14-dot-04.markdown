@@ -33,8 +33,7 @@ untar the file and set path variable,
 ```
 	$ wget http://www.scala-lang.org/files/archive/scala-2.10.4.tgz
 	$ sudo mkdir /usr/local/src/scala
-	$ sudo cp scala-2.10.4.tgz /usr/local/src/scala
-	$ sudo tar xvf /usr/local/src/scala-2.10.4.tgz
+	$ sudo tar xvf scala-2.10.4.tgz -C /usr/local/src/scala/
 ```
 ```
 	$ vi .bashrc
