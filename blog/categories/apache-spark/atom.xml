@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Spark | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/apache-spark/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-25T00:31:31+05:30</updated>
+  <updated>2015-03-27T11:36:00+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -59,7 +59,7 @@ restart bashrc
 <code>
     $ . .bashrc
 </code>
-To check the Scala is successful
+To check the Scala is installed successfully
 <code>
     $ scala -version
 </code>
@@ -112,14 +112,6 @@ Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfro
 <span class='line-number'>28</span>
 <span class='line-number'>29</span>
 <span class='line-number'>30</span>
-<span class='line-number'>31</span>
-<span class='line-number'>32</span>
-<span class='line-number'>33</span>
-<span class='line-number'>34</span>
-<span class='line-number'>35</span>
-<span class='line-number'>36</span>
-<span class='line-number'>37</span>
-<span class='line-number'>38</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ cd spark-1.1.0&lt;/p&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;pre&gt;&lt;code&gt;$ sbt/sbt assembly
@@ -149,16 +141,15 @@ Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfro
 </span><span class='line'>&lt;code&gt;
 </span><span class='line'>If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into _spark-shell_ just follow the instructions
 </span><span class='line'>&lt;/code&gt;
-</span><span class='line'>$ sbt/sbt &ldquo;streaming-mqtt/package&rdquo;&lt;/p&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;then add this package into the classpath:
-</span><span class='line'>
-</span><span class='line'>$ bin/spark-shell --driver-class-path
-</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;p&gt;external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.1.0.jar
-</span><span class='line'>scala &gt; import org.apache.spark.streaming.mqtt._</span></code></pre></td></tr></table></div></figure>
-Using this you can check your code line by line.</p>
+</span><span class='line'>$ sbt/sbt &ldquo;streaming-mqtt/package&rdquo;</span></code></pre></td></tr></table></div></figure>
+Then add this package into the classpath</p>
+
+<pre><code>    $ bin/spark-shell --driver-class-path
+external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.1.0.jar
+    scala &gt; import org.apache.spark.streaming.mqtt._
+</code></pre>
+
+<p>Using this you can check your code line by line.</p>
 
 <h3>Accessing Hadoop Filesystems</h3>
 

@@ -159,7 +159,7 @@ untar the file and set path variable,</p>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ . .bashrc</span></code></pre></td></tr></table></div></figure>
 
 
-<p>To check the Scala is successful</p>
+<p>To check the Scala is installed successfully</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ scala -version</span></code></pre></td></tr></table></div></figure>
@@ -226,17 +226,16 @@ Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
 <p>If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into <em>spark-shell</em> just follow the instructions</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="s">&quot;streaming-mqtt/package&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Then add this package into the classpath</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="n">sbt</span><span class="o">/</span><span class="n">sbt</span> <span class="s">&quot;streaming-mqtt/package&quot;</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">then</span> <span class="n">add</span> <span class="k">this</span> <span class="k">package</span> <span class="nn">into</span> <span class="n">the</span> <span class="n">classpath</span><span class="k">:</span>
-</span><span class='line'>
-</span><span class='line'><span class="kt">$</span> <span class="kt">bin/spark-shell</span> <span class="kt">--driver-class-path</span>
+</pre></td><td class='code'><pre><code class='scala'><span class='line'><span class="n">$</span> <span class="n">bin</span><span class="o">/</span><span class="n">spark</span><span class="o">-</span><span class="n">shell</span> <span class="o">--</span><span class="n">driver</span><span class="o">-</span><span class="n">class</span><span class="o">-</span><span class="n">path</span>
 </span><span class='line'><span class="n">external</span><span class="o">/</span><span class="n">mqtt</span><span class="o">/</span><span class="n">target</span><span class="o">/</span><span class="n">scala</span><span class="o">-</span><span class="mf">2.10</span><span class="o">/</span><span class="n">spark</span><span class="o">-</span><span class="n">streaming</span><span class="o">-</span><span class="n">mqtt_2</span><span class="o">.</span><span class="mi">10</span><span class="o">-</span><span class="mf">1.1</span><span class="o">.</span><span class="mf">0.</span><span class="n">jar</span>
 </span><span class='line'><span class="n">scala</span> <span class="o">&gt;</span> <span class="k">import</span> <span class="nn">org.apache.spark.streaming.mqtt._</span>
 </span></code></pre></td></tr></table></div></figure>
