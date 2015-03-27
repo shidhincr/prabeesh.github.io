@@ -48,7 +48,7 @@ restart bashrc
 ```
 	$ . .bashrc
 ```
-To check the Scala is successful
+To check the Scala is installed successfully
 ```
 	$ scala -version
 ```
@@ -95,9 +95,10 @@ You can run Spark interactively through the Scala shell
 If want to check some particular sections of spark using shell. For example run MQTT interactevely, the mqtt is defined under external for import that into _spark-shell_ just follow the instructions
 ```
 	$ sbt/sbt "streaming-mqtt/package"
+```
+Then add this package into the classpath
 
-	then add this package into the classpath:
-
+```
 	$ bin/spark-shell --driver-class-path
 external/mqtt/target/scala-2.10/spark-streaming-mqtt_2.10-1.1.0.jar
 	scala > import org.apache.spark.streaming.mqtt._
