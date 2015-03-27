@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Bigdata | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/bigdata/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-03-28T00:01:39+05:30</updated>
+  <updated>2015-03-28T00:25:18+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -44,8 +44,7 @@ untar the file and set path variable,
 <code>
     $ wget http://www.scala-lang.org/files/archive/scala-2.10.4.tgz
     $ sudo mkdir /usr/local/src/scala
-    $ sudo cp scala-2.10.4.tgz /usr/local/src/scala/
-    $ sudo tar xvf /usr/local/src/scala/scala-2.10.4.tgz
+    $ sudo tar xvf scala-2.10.4.tgz -C /usr/local/src/scala/
 </code>
 <code>
     $ vi .bashrc
