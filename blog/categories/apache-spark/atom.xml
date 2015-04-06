@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Spark | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/apache-spark/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-06T23:00:22+05:30</updated>
+  <updated>2015-04-06T23:19:44+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -130,7 +130,7 @@ Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfro
 </span><span class='line'>You can run Spark interactively through the Scala shell
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
-</span><span class='line'>&lt;pre&gt;&lt;code&gt;$ ./spark-shell
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;$ ./bin/spark-shell
 </span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
 </span><span class='line'>
 </span><span class='line'>&lt;p&gt;&lt;code&gt;

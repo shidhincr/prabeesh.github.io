@@ -4,7 +4,7 @@
   <title><![CDATA[This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-06T23:00:22+05:30</updated>
+  <updated>2015-04-06T23:19:44+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -128,7 +128,7 @@ Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
 <p>You can run Spark interactively through the Scala shell</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./spark-shell</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ./bin/spark-shell</span></code></pre></td></tr></table></div></figure>
 
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
