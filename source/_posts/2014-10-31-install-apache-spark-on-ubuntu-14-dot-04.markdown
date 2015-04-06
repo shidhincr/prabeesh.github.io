@@ -85,7 +85,7 @@ For more detail [visit](http://spark.apache.org/docs/1.1.1/)
 ###Spark Interactive Shell
 You can run Spark interactively through the Scala shell
 ```
-	$ ./spark-shell
+	$ ./bin/spark-shell
 ```
 ```scala
 	scala> val textFile = sc.textFile("README.md")
