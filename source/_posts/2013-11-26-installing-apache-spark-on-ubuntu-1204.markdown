@@ -5,7 +5,6 @@ date: 2013-11-26T12:24:00+05:30
 comments: true
 categories: [Apache Spark, BigData]
 keywords: [install spark on ubuntu 12.04, spark installation on ubunt 12.04, installing spark on ubuntu-1204, apache spark installation guide 12.04, installing apache spark 12.04, spark on ubuntu1204, apache spark installation 12.04, install spark in ubunt1204, how to install spark on ubuntu-12.04, apache spark cluster 12.04]
-description: set up Spark on Ubuntu, Install Spark on Ubuntu, Apache Spark set up in Ubuntu
 ---
 Apache Spark is an open source in memory cluster computing framework. Initially developed in UC Berkely AMPLab and now an Apache Incubator Project.    Spark is a cluster computing framework designed for low-latency iterative jobs and interactive use from an interpreter. It provides clean, language-integrated APIs in Scala, Java, and Python, with a rich array of parallel operators. You may read more about it [here](http://spark.apache.org/)
 
