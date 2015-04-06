@@ -12,13 +12,14 @@ In [previous post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/) m
 ```  
 this will give python interactive shell for spark. Enjoy  Spark in Python also
 
-For starting interactive shell fine for us. In production level we should need stand alone application. One the [previous](/blog/2014/04/01/a-standalone-spark-application-in-scala/) posts is talking about stand alone Spark application in Scala. Here we can check how to we can write stand alone Python application or with reference to  [Spark official](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) site we can call it as self contained PySpark application. For you should build spark using sbt assembly to build Spark [refer](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). Actually it is simple just add PySpark classes in the system python path as follows
+For starting interactive shell fine for us. In production level we should need stand alone application. One the [previous](/blog/2014/04/01/a-standalone-spark-application-in-scala/) posts is talking about stand alone Spark application in Scala. Here we can check how to we can write stand alone Python application or with reference to  [Spark official](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) site we can call it as self contained PySpark application. For you should build spark using sbt assembly to build Spark [refer](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). Actually it is simple just add PySpark lib path in the system python path as follows
 ```
 cd ~
 vi .bashrc
 ```
-the add 
+then add 
 ```
+export SPARK_HOME=<pathto your Spark home>
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 ```
 don't forget to export the SPARK_HOME, then as usual restart bash
