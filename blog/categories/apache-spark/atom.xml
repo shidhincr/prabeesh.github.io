@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Spark | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/apache-spark/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-07T22:03:22+05:30</updated>
+  <updated>2015-04-07T23:33:58+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -24,7 +24,7 @@
 </code><br/>
 this will give Python interactive shell for spark. Enjoy Spark using Python</p>
 
-<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. To build Spark using sby assembly <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>. Begin by adding Pyspark path as follows
+<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. To build Spark using sby assembly <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>. Begin by adding Pyspark lib in system Python path as follows
 <code>
 cd ~
 vi .bashrc
