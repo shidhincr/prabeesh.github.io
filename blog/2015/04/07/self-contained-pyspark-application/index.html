@@ -108,17 +108,16 @@
   </header>
 
 
-<div class="entry-content"><p>In my <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">Previous post</a> I wrote about installation of spark, Scala interactive shell etc. This post will talk about doing same in Python. Like Scala iteractive shell there is interactive shell for Python. To activate the same run the following command from spark root folder</p>
+<div class="entry-content"><p>In my <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">previous post</a> I wrote about installation of Spark, Scala interactive shell etc. This post will talk about doing same in Python. Like Scala iteractive shell there is interactive shell for Python. To activate the same run the following command from spark root folder</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>./bin/pyspark</span></code></pre></td></tr></table></div></figure>
 
 
 <p>
-this will give python interactive shell for spark. Enjoy Spark using Python</p>
+this will give Python interactive shell for spark. Enjoy Spark using Python</p>
 
-<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. Don&rsquo;t forget to build the Spark. To build Spark using sby assembly<a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>.
-Actually it is simple just add PySpark lib path in the system python path as follows</p>
+<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. To build Spark using sby assembly<a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>. Begin by adding Pyspark path as follows</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -146,7 +145,7 @@ Actually it is simple just add PySpark lib path in the system python path as fol
 </pre></td><td class='code'><pre><code class=''><span class='line'>pip install py4j</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Now pyspark is avaible in system path. After writing our Python one can simply run the code using python command then it runs in local spark instance with default configurations. For spark applications it is better to use the spark submit script.</p>
+<p>Now PySpark is avaible in system path. After writing our Python, one can simply run the code using python command then it runs in local Spark instance with default configurations. For Spark applications it is better to use the spark submit script.</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --master local[8] &lt;python_file.py&gt;</span></code></pre></td></tr></table></div></figure>
