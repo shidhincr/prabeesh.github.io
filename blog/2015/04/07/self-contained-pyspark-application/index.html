@@ -5,12 +5,12 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Running Mesos-0.13.0 on Ubuntu-12.04 - This is One of the Solutions</title>
+  <title>Self Contained PySpark Application - This is One of the Solutions</title>
   <meta name="author" content="Prabeesh K">
 
   
-  <meta name="description" content="Installing Mesos for Apache Spark, Set up Cluster for Spark">
-  <meta name="keywords" content="mesosapache spark mesosspark mesos cluster setupspark deplot installationmesos installationset up mesos on ubuntuubuntu mesos apt getubuntu spark with mesosmesos cluster configuration">
+  <meta name="description" content="This post talking about how set up the pyspark single application">
+  <meta name="keywords" content="stand alone pyspark applicationpython spark examplebeginners guide to pysparkpyspark spark exampleapllications in pyspark">
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
@@ -19,7 +19,7 @@
   <meta name="msvalidate.01" content="E9C54D49527AFA588120A46982BDE002" />
 
   
-  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204">
+  <link rel="canonical" href="http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application">
   <link href="/favicon.png" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <link href="/atom.xml" rel="alternate" title="This is One of the Solutions" type="application/atom+xml">
@@ -89,7 +89,7 @@
   
   <header>
     
-      <h1 class="entry-title">Running Mesos-0.13.0 on Ubuntu-12.04</h1>
+      <h1 class="entry-title">Self Contained PySpark Application</h1>
     
     
       <p class="meta">
@@ -98,7 +98,7 @@
 
 
 
-<time class='entry-date' datetime='2013-10-07T10:53:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>10:53 am</span></time>
+<time class='entry-date' datetime='2015-04-07T21:05:30+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:05 pm</span></time>
         
            | <a href="#disqus_thread"
              data-disqus-identifier="http://blog.prabeeshk.com">Comments</a>
@@ -108,81 +108,56 @@
   </header>
 
 
-<div class="entry-content"><p>You will need the following packages to run Mesos.</p>
+<div class="entry-content"><p>In my <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">Previous post</a> I wrote about installation of spark, Scala interactive shell etc. This post will talk about doing same in Python. Like Scala iteractive shell there is interactive shell for Python. To activate the same run the following command from spark root folder</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install python2.7-dev g++ libcppunit-dev libunwind7-dev git libcurl4-nss-dev</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/pyspark</span></code></pre></td></tr></table></div></figure>
 
 
-<p>You need to have Java installed, or the JAVA_HOME environment variable pointing to a Java installation.</p>
+<p>
+this will give python interactive shell for spark. Enjoy Spark using Python</p>
 
-<p>You can download the Mesos distribution from <a href="http://www.apache.org/dyn/closer.cgi/mesos/0.13.0/">here</a>. After that untar the downloaded file</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ tar xvf mesos-0.13.0.tar.gz</span></code></pre></td></tr></table></div></figure>
-
-
-<h3>Building and Installing</h3>
+<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. Don&rsquo;t forget to build the Spark. To build Spark using sby assembly<a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>.
+Actually it is simple just add PySpark lib path in the system python path as follows</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd mesos-0.13.0
-</span><span class='line'>$ mkdir build
-</span><span class='line'>$ cd build
-</span><span class='line'>$ sudo  ../configure --prefix=/home/user/mesos
-</span><span class='line'>$ sudo make
-</span><span class='line'>$ sudo make check
-</span><span class='line'>$ sudo make install</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd ~
+</span><span class='line'>vi .bashrc</span></code></pre></td></tr></table></div></figure>
 
 
-<p>You can pass the &ndash;prefix option while configuring to tell where to install. For example, pass<strong><strong>&ndash;prefix=/home/user/mesos</strong></strong>. By default the prefix is <strong><strong>/usr/local</strong></strong>.
-Once you are done with the installation, it is now time to start your mesos cluster:</p>
-
-<p>Go into the directory where you built Mesos.</p>
+<p>then add following two path export in end of bashrc file</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd mesos-0.13.0/build/bin</span></code></pre></td></tr></table></div></figure>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>export SPARK_HOME=&lt;path to Spark home&gt;
+</span><span class='line'>export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH</span></code></pre></td></tr></table></div></figure>
 
 
-<p>Run the command to launch the master.</p>
+<p>don&rsquo;t forget to export the SPARK_HOME, then as usual restart bash</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sh mesos-master.sh </span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class=''><span class='line'>. .bashrc</span></code></pre></td></tr></table></div></figure>
+
+
+<p>PySpark depends the py4j Python package. It helps Python interpreter to dynamically access the Spark object from the JVM, install py4j python package using following comand.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>pip install py4j</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now pyspark is avaible in system path. After writing our Python one can simply run the code using python command then it runs in local spark instance with default configurations. For spark applications it is better to use the spark submit script.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>./bin/spark-submit --master local[8] &lt;python_file.py&gt;</span></code></pre></td></tr></table></div></figure>
 
 
 <p>
-Take note of the IP and port that the master is running on, which will look something like <strong><strong>[IP of the machine]:5050</strong></strong>.
-URL of master: <strong>mesos://[IP of the machine]:5050</strong>. View the master&rsquo;s web UI at <strong><code>http://[IP of the machine]:5050</code></strong>.</p>
+For more details about spark submit <a href="https://spark.apache.org/docs/latest/configuration.html">refer here</a>. From the site we can observe that configuration values can be passed at run time. It can also be changed in the conf/spark-defaults.conf file. After configuring spark one needs to run it using the python command, for the changes to get reflected.</p>
 
-<p>Copy mesos-0.13.0 and mesos to the same paths on all the nodes in the cluster. To launch a slave go to the directory</p>
+<p>Now you are thinking about why we don&rsquo;t have a pip install for pyspark. You can find the reason in this <a href="https://issues.apache.org/jira/browse/SPARK-1267">jira ticket</a>.</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd mesos-0.13.0/build/src</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Run the command to launch the slave.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sh mesos-slave  --master=[IP of the mesos master machine ]:5050</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The slave will show up on the mesos master&rsquo;s web UI.</p>
-
-<h3>Mesos Client</h3>
-
-<p>Copy the libmesos.so from prefix folder(/home/user/mesos/lib) of the mesos master to /usr/local/lib of the client machine and install the following package</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>$ sudo apt-get install libunwind7-dev</span></code></pre></td></tr></table></div></figure>
-
-
-<p>
-Now you can  run  applications against the Mesos cluster from client machine.</p>
+<p>If you are a fan of iPython then you have the option to run PySpark there as well refer this <a href="http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/">blog post</a> for more detail.</p>
 </div>
 
 
@@ -198,12 +173,12 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
 
 
 
-<time class='entry-date' datetime='2013-10-07T10:53:00+05:30'><span class='date'><span class='date-month'>Oct</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>10:53 am</span></time>
+<time class='entry-date' datetime='2015-04-07T21:05:30+05:30'><span class='date'><span class='date-month'>Apr</span> <span class='date-day'>7</span><span class='date-suffix'>th</span>, <span class='date-year'>2015</span></span> <span class='time'>9:05 pm</span></time>
       
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/apache-mesos/'>apache mesos</a>, <a class='category' href='/blog/categories/bigdata/'>bigdata</a>
+    <a class='category' href='/blog/categories/apache-spark/'>apache spark</a>, <a class='category' href='/blog/categories/pyspark/'>pyspark</a>, <a class='category' href='/blog/categories/python/'>python</a>
   
 </span>
 
@@ -212,7 +187,7 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
     
       <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application/" data-via="prabeesh_k" data-counturl="http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application/" >Tweet</a>
   
   
   
@@ -223,10 +198,8 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
     
     <p class="meta">
       
-        <a class="basic-alignment left" href="/blog/2013/08/26/mqtt-scala-publisher-and-subscriber/" title="Previous Post: MQTT Scala Publisher and Subscriber using Eclipse Paho">&laquo; MQTT Scala Publisher and Subscriber using Eclipse Paho</a>
+        <a class="basic-alignment left" href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/" title="Previous Post: Install Apache Spark on Ubuntu-14.04">&laquo; Install Apache Spark on Ubuntu-14.04</a>
       
-      
-        <a class="basic-alignment right" href="/blog/2013/11/26/installing-apache-spark-on-ubuntu-1204/" title="Next Post: Installing Apache Spark on Ubuntu-12.04">Installing Apache Spark on Ubuntu-12.04 &raquo;</a>
       
     </p>
   </footer>
@@ -351,8 +324,8 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/';
-        var disqus_url = 'http://blog.prabeeshk.com/blog/2013/10/07/running-mesos-0130-on-ubuntu-1204/';
+        var disqus_identifier = 'http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application/';
+        var disqus_url = 'http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application/';
         var disqus_script = 'embed.js';
       
     (function () {
