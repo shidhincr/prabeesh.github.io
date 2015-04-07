@@ -13,7 +13,7 @@ In my [previous post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/
 ```  
 this will give Python interactive shell for spark. Enjoy Spark using Python
 
-For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my [previous posts](/blog/2014/04/01/a-standalone-spark-application-in-scala/) I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the [Spark official site](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) we can call it a self contained PySpark application. To build Spark using sby assembly[refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). Begin by adding Pyspark path as follows
+For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my [previous posts](/blog/2014/04/01/a-standalone-spark-application-in-scala/) I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the [Spark official site](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) we can call it a self contained PySpark application. To build Spark using sby assembly [refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). Begin by adding Pyspark lib in system Python path as follows
 ```
 cd ~
 vi .bashrc
