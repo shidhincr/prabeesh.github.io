@@ -30,7 +30,7 @@ Now we can import pyspark in our python code. After writing your Python code you
 ```
 ./bin/spark-submit --master local[8] <python_file.py>
 ``` 
-For more details about spark submit [refer](https://spark.apache.org/docs/latest/configuration.html). From here you also find the we can pass configuration values at run time. otherwise we can set it up in the conf/spark-defaults.conf. 
+For more details about spark submit [refer](https://spark.apache.org/docs/latest/configuration.html). From here you also find the we can pass configuration values at run time. otherwise we can set it up in the conf/spark-defaults.conf. After setting the spark configuration thenn it will also effect while you simply run uisng python command.
 
 Now you are thinking about why we don't have a pip install for pyspark. You can find the reason in this [jira ticket](https://issues.apache.org/jira/browse/SPARK-1267).   
 
