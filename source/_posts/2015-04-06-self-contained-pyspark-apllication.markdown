@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Self Contained PySpark Apllication"
+title: "Self Contained PySpark Application"
 date: 2015-04-06 23:09:01 +0530
 comments: true
 published: false
