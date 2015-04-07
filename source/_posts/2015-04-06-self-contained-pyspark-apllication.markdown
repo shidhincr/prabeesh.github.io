@@ -12,7 +12,7 @@ categories:
 ```  
 this will give python interactive shell for spark. Enjoy Spark in Python also
 ###Stand alone PySpark Application 
-One the [previous posts](/blog/2014/04/01/a-standalone-spark-application-in-scala/)mentions about stand alone Spark application in Scala. In this post going to introduce how to write stand alone Python application/self contained PySpark application. Don't forget to build Spark using sbt assembly before going to start. To build Spark [refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). 
+One the [previous posts](/blog/2014/04/01/a-standalone-spark-application-in-scala/) mentions about stand alone Spark application in Scala. In this post going to introduce how to write stand alone Python application/self contained PySpark application. Don't forget to build Spark using sbt assembly before going to start. To build Spark [refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). 
 Actually it is simple just add PySpark lib path in the system python path as follows
 ```
 cd ~
