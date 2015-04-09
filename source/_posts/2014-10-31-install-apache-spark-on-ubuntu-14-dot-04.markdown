@@ -61,6 +61,10 @@ Or just type scala. It goes to scala interactive shell
 	$ scala
 	scala>
 ```
+In next step install git. Spark build depends git.
+```
+sudo apt-get install git
+```
 Finally download spark ditributaion from [here](http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz) 
 ```
 	$ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz
