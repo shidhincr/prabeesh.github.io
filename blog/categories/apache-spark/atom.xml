@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Apache Spark | This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/blog/categories/apache-spark/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-07T23:33:58+05:30</updated>
+  <updated>2015-04-09T23:43:00+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -112,6 +112,10 @@ Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
 <code>
     $ scala
     scala&gt;
+</code>
+In next step install git. Spark build depends git.
+<code>
+sudo apt-get install git
 </code>
 Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz">here</a>
 <code>

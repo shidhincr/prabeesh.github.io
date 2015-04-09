@@ -4,7 +4,7 @@
   <title><![CDATA[This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-07T23:33:58+05:30</updated>
+  <updated>2015-04-09T23:43:00+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -148,6 +148,12 @@ Scala code runner version 2.10.4 -- Copyright 2002-2013, LAMP/EPFL
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>$ scala
 </span><span class='line'>scala&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In next step install git. Spark build depends git.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>sudo apt-get install git</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Finally download spark ditributaion from <a href="http://d3kbcqa49mib13.cloudfront.net/spark-1.1.0.tgz">here</a></p>
