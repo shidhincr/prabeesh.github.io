@@ -4,7 +4,7 @@
   <title><![CDATA[This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-11T22:25:27+05:30</updated>
+  <updated>2015-04-11T22:54:40+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -705,7 +705,7 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
     <link href="http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/"/>
     <updated>2013-03-07T11:00:00+05:30</updated>
     <id>http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program</id>
-    <content type="html"><![CDATA[<p>Let&rsquo;s consider a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.</p>
+    <content type="html"><![CDATA[<p>In my <a href="2013/02/22/introduction-to-parallel-programing/">previous post</a> I wrote about introduction to parallel programming with CUDA. In this post explaining a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.</p>
 
 <pre><code>1- CPU allocates storage on GPU
 2- CPU copies input data from CPU to GPU
@@ -839,6 +839,33 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
 <p>Let&rsquo;s walk through the body of the kernel. So the first line of the body here. CUDA has a built in variable called thread index, threadIDX, and that&rsquo;s going to tell each thread its index within a block. threadIDX is actually a c struct with 3 members. .x, .y, and .z. the c struct is called a dim 3. Now, we will launch 64 threads. So for the first instance of those threads, threadIDX.x will return zero, for the second instance, 1. And so on, up to 63 for the last element. Everything else in this kernel just looks like straightforward C. It looks just like a serial program.</p>
 
 <p>For each thread, we&rsquo;re going to first read the array element corresponding to this thread index from global memory. We are going to store it in this float;variable f. We are then going to square f, and we&rsquo;re going to write that value back to global memory, in the output array element that corresponds to our thread index.</p>
+
+<p>This blog is my short notes as part of the course now I am doing in the Udacity <a href="https://www.udacity.com/course/cs344">Intro to Parallel Programming</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Introduction to Parallel Programing]]></title>
+    <link href="http://blog.prabeeshk.com/blog/2013/02/22/introduction-to-parallel-programing/"/>
+    <updated>2013-02-22T23:16:54+05:30</updated>
+    <id>http://blog.prabeeshk.com/blog/2013/02/22/introduction-to-parallel-programing</id>
+    <content type="html"><![CDATA[<p>This post focuses on parallel computing on the GPU. Parallel computing is a way of solving large problems by breaking them into smaller pieces and run these smaller pieces at the same time.</p>
+
+<h3>Main reasons of technical trends on the parallel computing on the GPU</h3>
+
+<p>Modern processors are made from transistors. And each year, those transistors get smaller and smaller. The feature size is the minimum size of a transistor on a chip. As the feature size decreases, transistors get smaller, run faster, use less power, and put more of them on a chip. And the consequence is that ,more and more resources for computation every single year. One of the primary feature of a processors is clock speed . Over many years, the clock speeds continue to go up. However, over the last decade, that have essentially remained constant. Even though transistors are continuing to get smaller and faster and consume less energy per transistor, Running a billion transistors generates high amount of heat . since we can&rsquo;t keep all these processors cool, Power has emerged as a primary driving factor.</p>
+
+<p>Traditional CPUs has very complicated control hardware. This allows flexibility in performance, but as control hardware gets more complicated, it becomes more expensive in terms of power and design complexity. So might choose to build simpler control structures. And the way is that going to build that data path in the GPU is by building a large number of parallel compute units. Individually, those compute units are small, simple and power efficient. So put a very large number of them on a single chip. More generally program them in such a way that they can all work together to solve complex problems. A high end GPU contains over 3,000 arithmetic units, ALUs, that can simultaneously run 3,000 arithmetic operations. Gpus can have tens of thousands of parallel pieces which are active at the same time. each of those pieces of work a thread, and a modern GPU may be running up to 65,000 concurrent threads. Together, all this computing power has the potential to solve the problems faster.</p>
+
+<p>To build a power efficient processor, choice is minimizing latency. Latency is the amount of time to complete a task. The other choice is throughput. Throughput is tasks completed per unit time. Regulating throughput is the right approach,because Latency Lags Bandwidth</p>
+
+<h3>CUDA(Computer Unified Device Architecture)</h3>
+
+<p>CUDA is a parallel programming platform. The programming model implemented by the GPU is created by NVIDIA. CUDA gives developers to access the virtual instruction set memory of the parallel computational elements in CUDA GPUs. Unlike CPUs, GPU have a parallel throughput architecture that emphasizes executing many concurrent threads slowly, rather than executing a single thread very quickly. This approach for solving general purpose problems on GPU is known as GPGPU.</p>
+
+<p>The CUDA programming model allows us to program both CPU and GPU with one program so that the power of the GPU in programs. At First, the CPU allocates storage space on the GPU. Then, the CPU copies some input data from the CPU to the GPU.and the Next step is, CPU calls some kernels watching these kernels on the GPU that process this data. And finally, the CPU copies the results back to the CPU from the GPU.</p>
+
+<p>This blog is my short notes as part of the course now I am doing in the Udacity <a href="https://www.udacity.com/course/cs344">Intro to Parallel Programming</a>.</p>
 ]]></content>
   </entry>
   
