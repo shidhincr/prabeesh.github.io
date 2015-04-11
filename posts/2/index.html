@@ -9,7 +9,7 @@
   <meta name="author" content="Prabeesh K">
 
   
-  <meta name="description" content="The time constant(sec) of a RC circuit is equal to the product of the resistance and the capacitance of the circuit. It is the time required to &hellip;">
+  <meta name="description" content="HTML5 is the new HTML standard. One of the most interesting new feature in HTML5 is the canvas element canvas for 2D drawing. A canvas is a &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -76,6 +76,285 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/02/09/developing-a-simple-game-with-html5-slash-canvas/">Developing a Simple Game With HTML5/canvas</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+<time class='entry-date' datetime='2013-02-09T10:12:43+05:30'><span class='date'><span class='date-month'>Feb</span> <span class='date-day'>9</span><span class='date-suffix'>th</span>, <span class='date-year'>2013</span></span> <span class='time'>10:12 am</span></time>
+        
+           | <a href="/blog/2013/02/09/developing-a-simple-game-with-html5-slash-canvas/#disqus_thread"
+             data-disqus-identifier="http://blog.prabeeshk.com/blog/2013/02/09/developing-a-simple-game-with-html5-slash-canvas/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>HTML5 is the new HTML standard. One of the most interesting new feature in HTML5 is the canvas element <strong>canvas</strong> for 2D drawing. A canvas is a rectangular area on an HTML page. All drawing on the canvas must be done using JavaScript. This post go through the basics of implementing a 2D canvas context, and using the basic canvas functions for developing a simple game.
+Creating a canvad context, adding the <strong>canvas</strong> element to your HTML document like so</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='html'><span class='line'><span class="nt">&lt;canvas</span> <span class="na">id=</span><span class="s">&quot;Canvas&quot;</span> <span class="na">width=</span><span class="s">&quot;800&quot;</span> <span class="na">height=</span><span class="s">&quot;450&quot;</span><span class="nt">&gt;&lt;/canvas&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+To draw inside the canvas need to use Javascript. First find the canvas element using  getElementById, then initialize the context.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">canvas</span> <span class="o">=</span> <span class="nx">documnet</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;Canvas&quot;</span><span class="p">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">canvas</span><span class="p">.</span><span class="nx">getContext</span><span class="p">(</span><span class="s2">&quot;2d&quot;</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To draw text on a canvas, the most import property and methods are:
+    font - deifine the font properties for text
+    fillTex(text, x, y) - Draw filled text on the canvas
+To set the font, size, and style of HTML5 canvas text, setg the font property of the canvas context to a string containing the font style, size and family separeted by spaces.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">font</span> <span class="o">=</span> <span class="s2">&quot; 20px sans-serif&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">fillStyle</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">textBaseline</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s2">&quot;Press Enter Key to start the game&quot;</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span><span class="mi">10</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>
+To draw an image on a canvas use the following method
+drawImage(image, X, Y, Width, Height)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="kd">var</span> <span class="nx">bird</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Image</span><span class="p">();</span>
+</span><span class='line'><span class="nx">bird</span><span class="p">.</span><span class="nx">src</span> <span class="o">=</span> <span class="s1">&#39;bird.png&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">bird</span><span class="p">,</span> <span class="nx">posX</span><span class="p">,</span> <span class="nx">posY</span><span class="p">,</span> <span class="nx">Width</span><span class="p">,</span> <span class="nx">Height</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To rotate the HTML5 Canvas, use the rotate() transform method. The rotate transformation requires an angle in radians.
+  context.rotate(angle);</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">rotate</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">60</span><span class="p">);</span>
+</span><span class='line'><span class="nx">context</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">gun</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">50</span><span class="p">);</span>
+</span><span class='line'><span class="o">&lt;</span><span class="err">/script&gt;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>To get the event occurring in the document, use  EventListener.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;keydown&#39;</span><span class="p">,</span> <span class="kd">function</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The functions used for  game development are
+The WhichKey() is used for the read the keyboard input. The UP/DOWN arrow keys are used for controlling gun movements. The Enter key is used for start the game. The space key is used for firing.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">WhichKey</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span>  <span class="p">{</span>
+</span><span class='line'>   <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">==</span><span class="mi">38</span><span class="p">)</span> <span class="c1">//UP arrow</span>
+</span><span class='line'>     <span class="nx">gunUpMove</span><span class="p">();</span>
+</span><span class='line'>   <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">==</span><span class="mi">40</span><span class="p">)</span> <span class="c1">//Down arrow</span>
+</span><span class='line'>     <span class="nx">gunDownMove</span><span class="p">();</span>
+</span><span class='line'>   <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">==</span><span class="mi">32</span><span class="p">)</span> <span class="c1">// Space Key</span>
+</span><span class='line'>     <span class="nx">firing</span><span class="p">();</span>
+</span><span class='line'>   <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">keyCode</span><span class="o">==</span><span class="mi">13</span><span class="p">)</span> <span class="c1">//Enter Key</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The counter() is used for setup down counter. Using setInterval(fuction, timeinms) the counter() called by after 1000(1 second).</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">count</span> <span class="o">=</span> <span class="mi">60</span><span class="p">;</span>
+</span><span class='line'><span class="nx">clear</span><span class="o">=</span><span class="nx">setInterval</span><span class="p">(</span><span class="nx">counter</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+</span><span class='line'><span class="kd">function</span> <span class="nx">counter</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">count</span><span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">count</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>
+</span><span class='line'>   <span class="nx">clearInterval</span><span class="p">(</span><span class="nx">clear</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1">//code for show the counter</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The birdAppearing() is used for appearing bird on the canvas at random points and disappear after a particular  interval.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">birdAppearing</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">if</span> <span class="p">(</span><span class="nx">start</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">posx</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">635</span><span class="p">)</span><span class="o">+</span><span class="mi">85</span><span class="p">);</span>
+</span><span class='line'>    <span class="kd">var</span> <span class="nx">posy</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">((</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span><span class="o">*</span><span class="mi">305</span><span class="p">)</span><span class="o">+</span><span class="mi">85</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">context2</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">bird</span><span class="p">,</span> <span class="nx">posx</span><span class="p">,</span> <span class="nx">posy</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">40</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">posX</span> <span class="o">=</span> <span class="nx">posx</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">posY</span> <span class="o">=</span> <span class="nx">posy</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span><span class="nx">context2</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">450</span><span class="p">);</span>
+</span><span class='line'>                 <span class="nx">birdAppearing</span><span class="p">();</span>
+</span><span class='line'>               <span class="p">},</span><span class="mi">2000</span><span class="p">);</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The firing() is used for creating red dotted lines in canvas. If the dotted line coordinates exceed the canvas coordinates then it restore to initial position. The end point coordinate of dotted line always compare with the coordinates of center point of the bird image. If  difference between these points less than   radius of the circle centered at bird image then dotted lines restore initial position and also bird will die  and get a point.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">function</span> <span class="nx">firing</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">strokeStyle</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">lineWidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">beginPath</span><span class="p">();</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">moveTo</span><span class="p">(</span><span class="nx">fireStart</span><span class="o">+=</span> <span class="mi">8</span><span class="p">,</span><span class="mi">14</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">lineTo</span><span class="p">(</span><span class="nx">fireEnd</span><span class="o">+=</span> <span class="mi">8</span><span class="p">,</span><span class="mi">14</span><span class="p">);</span>
+</span><span class='line'>    <span class="nx">context</span><span class="p">.</span><span class="nx">stroke</span><span class="p">();</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">((</span><span class="nx">fireEnd</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">angle</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span> <span class="o">&gt;</span><span class="mi">800</span> <span class="o">||</span> <span class="p">(</span><span class="nx">fireEnd</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">angle</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">60</span><span class="p">))</span> <span class="o">&gt;</span><span class="mi">450</span><span class="p">){</span>
+</span><span class='line'>
+</span><span class='line'>     <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>     <span class="nx">context</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">fireEnd</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+</span><span class='line'>     <span class="nx">fireStart</span> <span class="o">=</span> <span class="mi">85</span><span class="p">;</span>
+</span><span class='line'>     <span class="nx">fireEnd</span> <span class="o">=</span> <span class="mi">87</span><span class="p">;</span>
+</span><span class='line'>               <span class="p">},</span><span class="mi">16</span><span class="p">);</span>
+</span><span class='line'>     <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>    <span class="k">if</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span><span class="nx">posX</span><span class="o">+</span><span class="mi">20</span><span class="o">-</span><span class="p">(</span><span class="nx">fireStart</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">cos</span><span class="p">(</span><span class="nx">angle</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">60</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">abs</span><span class="p">(</span> <span class="nx">posY</span><span class="o">+</span><span class="mi">20</span><span class="o">-</span><span class="p">(</span><span class="nx">fireEnd</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">sin</span><span class="p">(</span><span class="nx">angle</span><span class="o">*</span><span class="nb">Math</span><span class="p">.</span><span class="nx">PI</span><span class="o">/</span><span class="mi">60</span><span class="p">)))</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">))</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">context</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">85</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">fireEnd</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">fireStart</span> <span class="o">=</span> <span class="mi">85</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">fireEnd</span> <span class="o">=</span> <span class="mi">87</span><span class="p">;</span>
+</span><span class='line'>               <span class="p">},</span><span class="mi">16</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">context2</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">450</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">context2</span><span class="p">.</span><span class="nx">drawImage</span><span class="p">(</span><span class="nx">deadBird</span><span class="p">,</span> <span class="nx">posX</span><span class="p">,</span> <span class="nx">posY</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">60</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'>      <span class="nx">score</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">font</span> <span class="o">=</span> <span class="s2">&quot; 20px sans-serif&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">textAlign</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">fillStyle</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">textBaseline</span> <span class="o">=</span> <span class="s2">&quot;top&quot;</span><span class="p">;</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">clearRect</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+</span><span class='line'>      <span class="nx">context0</span><span class="p">.</span><span class="nx">fillText</span><span class="p">(</span><span class="s1">&#39;Score :&#39;</span><span class="o">+</span> <span class="nx">score</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+</span><span class='line'>      <span class="k">return</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The source code is available <a href="https://github.com/prabeesh/Game-Javascript-Canvas-GAE">here</a>.</p>
+
+<p>To play game <a href="http://prabs-game.appspot.com/">click here</a></p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>

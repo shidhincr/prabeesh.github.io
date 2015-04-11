@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Python | This is One of the Solutions]]></title>
-  <link href="http://blog.prabeeshk.com/blog/categories/python/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Html5 | This is One of the Solutions]]></title>
+  <link href="http://blog.prabeeshk.com/blog/categories/html5/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
   <updated>2015-04-11T22:25:27+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
@@ -12,70 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[Self Contained PySpark Application]]></title>
-    <link href="http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application/"/>
-    <updated>2015-04-07T21:05:30+05:30</updated>
-    <id>http://blog.prabeeshk.com/blog/2015/04/07/self-contained-pyspark-application</id>
-    <content type="html"><![CDATA[<p>In my <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">previous post</a> I wrote about installation of Spark, Scala interactive shell etc. This post will talk about doing same in Python. Like Scala iteractive shell there is interactive shell for Python. To activate the same run the following command from spark root folder
-<code>
-./bin/pyspark
-</code><br/>
-this will give Python interactive shell for spark. Enjoy Spark using Python</p>
-
-<p>For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my <a href="/blog/2014/04/01/a-standalone-spark-application-in-scala/">previous posts</a> I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the <a href="https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications">Spark official site</a> we can call it a self contained PySpark application. To build Spark using sby assembly <a href="/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/">refer this post</a>. Begin by adding Pyspark lib in system Python path as follows
-<code>
-cd ~
-vi .bashrc
-</code>
-then add following two path export in end of bashrc file
-<code>
-export SPARK_HOME=&lt;path to Spark home&gt;
-export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
-</code>
-don&rsquo;t forget to export the SPARK_HOME, then as usual restart bash
-<code>
-. .bashrc
-</code>
-PySpark depends the py4j Python package. It helps Python interpreter to dynamically access the Spark object from the JVM, install py4j python package using following comand.  <br/>
-<code>
-pip install py4j
-</code>
-Now PySpark is avaible in system path. After writing our Python, one can simply run the code using python command then it runs in local Spark instance with default configurations. For Spark applications it is better to use the spark submit script.
-<code>
-./bin/spark-submit --master local[8] &lt;python_file.py&gt;
-</code>
-For more details about spark submit <a href="https://spark.apache.org/docs/latest/configuration.html">refer here</a>. From the site we can observe that configuration values can be passed at run time. It can also be changed in the conf/spark-defaults.conf file. After configuring spark one needs to run it using the python command, for the changes to get reflected.</p>
-
-<p>Now you are thinking about why we don&rsquo;t have a pip install for pyspark. You can find the reason in this <a href="https://issues.apache.org/jira/browse/SPARK-1267">jira ticket</a>.</p>
-
-<p>If you are a fan of iPython then you have the option to run PySpark there as well refer this <a href="http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/">blog post</a> for more detail.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Paint App Using JavaScript and Canvas]]></title>
-    <link href="http://blog.prabeeshk.com/blog/2013/03/30/paint-app-using-javascript-and-canvas/"/>
-    <updated>2013-03-30T12:44:00+05:30</updated>
-    <id>http://blog.prabeeshk.com/blog/2013/03/30/paint-app-using-javascript-and-canvas</id>
-    <content type="html"><![CDATA[<p>An application to draw simple drawings using lines, rectangles and circles in different colours.</p>
-
-<p><img class="center" src="/images/paint.png" width="850" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
-
-<p>The application is developed using JavaScript and HTML5. The canvas feature in HTML5 is used for providing a drawable region. The JavaScript is used to handle drawing functions in these region. The select button to select the different tools to draw. The colour picker is made using the button option. The script basically listen three mouse events mousedown, mousemove and mouseup. This application implemented using two different frameworks Google App Engine and Flask.</p>
-
-<h3>Application with saving facility</h3>
-
-<p>This is done by saving values about each object needed to regenerate the same drawing. When we click the save button the data is transferred to the server as a json string where it is stored along with a name provided by the user. Simply regenerate the drawing using the data received from the server.</p>
-
-<p>In Google App Engine Google data storage is used for data storage. But in Flask sqlite3 is used for data storage.</p>
-
-<p>Source code: <a href="https://github.com/prabeesh/Paintapp-Javascript-Canvas-GAE">App with GAE</a> and <a href="https://github.com/prabeesh/Paintapp-Javascript-Canvas-Flask">App with Flask</a></p>
-
-<p>The app is deployed in appspot.com, You can find the application <a href="http://prabs-paint.appspot.com/">here</a></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[Developing a Simple Game With HTML5/canvas]]></title>
@@ -354,33 +290,6 @@ To draw inside the canvas need to use Javascript. First find the canvas element 
 The source code is available <a href="https://github.com/prabeesh/Game-Javascript-Canvas-GAE">here</a>.</p>
 
 <p>To play game <a href="http://prabs-game.appspot.com/">click here</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[AM Generation Using Matplotlib Python]]></title>
-    <link href="http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib/"/>
-    <updated>2011-09-25T01:39:00+05:30</updated>
-    <id>http://blog.prabeeshk.com/blog/2011/09/25/am-plot-matplotlib</id>
-    <content type="html"><![CDATA[<p>we can plot AM waves using matplotlib</p>
-
-<p>It is the one of the most strongest tool in linux to plot the waves</p>
-
-<pre><code class="python">import matplotlib.pylab as plt
-import numpy as num
-fc=50;
-fm=5;
-t=num.arange(0,1,0.001);
-c=num.sin(2*num.pi*fc*t);
-m=num.sin(2*num.pi*fm*t);     
-am=c*(2+m);
-plt.plot(am,’r’)
-plt.show()
-</code></pre>
-
-<p><img class="center" src="/images/am.png" width="600" height="350" title="&lsquo;image&rsquo; &lsquo;images&rsquo;" ></p>
-
-<p>For more details about matplotlib <a href="http://matplotlib.sourceforge.net/users/artists.html">refer</a></p>
 ]]></content>
   </entry>
   
