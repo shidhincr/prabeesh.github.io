@@ -4,7 +4,7 @@
   <title><![CDATA[This is One of the Solutions]]></title>
   <link href="http://blog.prabeeshk.com/atom.xml" rel="self"/>
   <link href="http://blog.prabeeshk.com/"/>
-  <updated>2015-04-11T22:54:40+05:30</updated>
+  <updated>2015-04-11T23:01:10+05:30</updated>
   <id>http://blog.prabeeshk.com/</id>
   <author>
     <name><![CDATA[Prabeesh K]]></name>
@@ -705,7 +705,7 @@ Now you can  run  applications against the Mesos cluster from client machine.</p
     <link href="http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program/"/>
     <updated>2013-03-07T11:00:00+05:30</updated>
     <id>http://blog.prabeeshk.com/blog/2013/03/07/a-simple-cuda-program</id>
-    <content type="html"><![CDATA[<p>In my <a href="2013/02/22/introduction-to-parallel-programing/">previous post</a> I wrote about introduction to parallel programming with CUDA. In this post explaining a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.</p>
+    <content type="html"><![CDATA[<p>In my <a href="http://blog.prabeeshk.com/blog/2013/02/22/introduction-to-parallel-programing/">previous post</a> I wrote about introduction to parallel programming with CUDA. In this post explaining a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.</p>
 
 <pre><code>1- CPU allocates storage on GPU
 2- CPU copies input data from CPU to GPU
