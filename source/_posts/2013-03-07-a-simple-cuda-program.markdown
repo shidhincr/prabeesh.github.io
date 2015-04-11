@@ -5,7 +5,7 @@ date: 2013-03-07T11:00:00+05:30
 keywords: [simple CUDA program, CUDA basic example, introduction to CUDA programming, CUDA for beginners, CUDA examples]
 comments: true
 ---
-Let's consider a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.
+In my [previous post](/blog/2013/02/22/introduction-to-parallel-programing/) I wrote about introduction to parallel programming with CUDA. In this post explaining a simple example CUDA code to compute squares of 64 numbers. A typical GPU program consist of following steps.
 
     1- CPU allocates storage on GPU
     2- CPU copies input data from CPU to GPU
@@ -85,3 +85,5 @@ Just know that this is the way;that CUDA knows this code is a kernel as opposed 
 Let's walk through the body of the kernel. So the first line of the body here. CUDA has a built in variable called thread index, threadIDX, and that's going to tell each thread its index within a block. threadIDX is actually a c struct with 3 members. .x, .y, and .z. the c struct is called a dim 3. Now, we will launch 64 threads. So for the first instance of those threads, threadIDX.x will return zero, for the second instance, 1. And so on, up to 63 for the last element. Everything else in this kernel just looks like straightforward C. It looks just like a serial program.
 
 For each thread, we're going to first read the array element corresponding to this thread index from global memory. We are going to store it in this float;variable f. We are then going to square f, and we're going to write that value back to global memory, in the output array element that corresponds to our thread index.
+
+This blog is my short notes as part of the course now I am doing in the Udacity [Intro to Parallel Programming](https://www.udacity.com/course/cs344)
