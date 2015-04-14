@@ -7,37 +7,41 @@ categories: [Apache Spark, PySpark, Python]
 keywords: [stand alone pyspark application, python spark example, beginners guide to pyspark, pyspark spark example, apllications in pyspark]
 description: This post talking about how set up the pyspark single application  
 ---
-In my [previous post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/) I wrote about installation of Spark, Scala interactive shell etc. This post will talk about doing same in Python. Like Scala iteractive shell there is interactive shell for Python. To activate the same run the following command from spark root folder 
+In my [previous post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/), I wrote about installation of Spark and Scala interactive shell. Here in this post we'll see how to do the same in Python. 
+
+Similar to Scala iteractive shell, there is an interactive shell available for Python. You can run it with the below command from spark root folder:
 ```
 ./bin/pyspark
 ```  
-this will give Python interactive shell for spark. Enjoy Spark using Python
+Now you can enjoy Spark using Python interactive shell.
 
-For experimentation and development the above mentioned shell will do, but once the code is moved to production we are talking about a stand alone application. In one the my [previous posts](/blog/2014/04/01/a-standalone-spark-application-in-scala/) I have talked about stand alone Spark application in Scala. Here the same is in Python application, as mentioned in the [Spark official site](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) we can call it a self contained PySpark application. To build Spark using sby assembly [refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/). Begin by adding Pyspark lib in system Python path as follows
+This shell might be sufficient for experimentations and developments. However, for production level, we should use a stand alone application. I talked about a stand alone Spark application in Scala in one of my previous [post](/blog/2014/04/01/a-standalone-spark-application-in-scala/). Here comes the same written in Python -- you can find more about it in [Spark official site](https://spark.apache.org/docs/latest/quick-start.html#self-contained-applications) -- and known as a self contained PySpark application. 
+
+First, [refer this post](/blog/2014/10/31/install-apache-spark-on-ubuntu-14-dot-04/) to build Spark using sby assembly. Add Pyspark lib in system Python path as follows:
 ```
 cd ~
 vi .bashrc
 ```
-then add following two path export in end of bashrc file 
+Add the following exports in end of bashrc file 
 ```
 export SPARK_HOME=<path to Spark home>
 export PYTHONPATH=$SPARK_HOME/python/:$PYTHONPATH
 ```
-don't forget to export the SPARK_HOME, then as usual restart bash
+Don't forget to export the SPARK_HOME. Restart `BASH` once it is done.
 ```
 . .bashrc
 ```
-PySpark depends the py4j Python package. It helps Python interpreter to dynamically access the Spark object from the JVM, install py4j python package using following comand.    
+PySpark depends on the `py4j` Python package. It helps Python interpreter to dynamically access the Spark object from the JVM.Install py4j python package using following comand:   
 ```
 pip install py4j
 ```
-Now PySpark is avaible in system path. After writing our Python, one can simply run the code using python command then it runs in local Spark instance with default configurations. For Spark applications it is better to use the spark submit script. 
+PySpark should be avaible in system path by now. After writing the Python code, one can simply run the code using python command then it runs in local Spark instance with default configurations. For Spark applications, it is better to use the spark submit script. 
 ```
 ./bin/spark-submit --master local[8] <python_file.py>
 ``` 
-For more details about spark submit [refer here](https://spark.apache.org/docs/latest/configuration.html). From the site we can observe that configuration values can be passed at run time. It can also be changed in the conf/spark-defaults.conf file. After configuring spark one needs to run it using the python command, for the changes to get reflected.   
+For more details about spark submit [refer here](https://spark.apache.org/docs/latest/configuration.html). From the site we can observe that the configuration values can be passed at run time. It can also be changed in the conf/spark-defaults.conf file. After configuring spark, one needs to run it using the python command to see the changes reflected.
 
-Now you are thinking about why we don't have a pip install for pyspark. You can find the reason in this [jira ticket](https://issues.apache.org/jira/browse/SPARK-1267).   
+The reason for why there is no `pip install` for pyspark can be found in this [jira ticket](https://issues.apache.org/jira/browse/SPARK-1267).
 
-If you are a fan of iPython then you have the option to run PySpark there as well refer this [blog post](http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/) for more detail.    
+If you are a fan of iPython, then you have the option to run PySpark. Refer this [blog post](http://blog.cloudera.com/blog/2014/08/how-to-use-ipython-notebook-with-apache-spark/) for more detail.    
 
